@@ -9,7 +9,7 @@ local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
 --// ================= KEY GUI =================
-local KEY = "dovi_sucks"
+local KEY = "dovi_lilfemboy"
 
 local keyGui = Instance.new("ScreenGui")
 keyGui.ResetOnSpawn = false
