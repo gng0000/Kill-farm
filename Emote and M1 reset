@@ -1,0 +1,201 @@
+-- made by 2elpk btw
+Players = game:GetService("Players")
+RunService = game:GetService("RunService")
+UIS = game:GetService("UserInputService")
+TweenService = game:GetService("TweenService")
+Workspace = game:GetService("Workspace")
+VirtualInputManager = game:GetService("VirtualInputManager")
+
+LocalPlayer = Players.LocalPlayer
+Camera = Workspace.CurrentCamera
+
+M1_IDLE = "rbxassetid://95534553319958"
+M1_PRESS = "rbxassetid://98264188479023"
+EMOTE_IDLE = "rbxassetid://83007856881977"
+EMOTE_PRESS = "rbxassetid://92438163139266"
+
+isActionActive = false
+loadedAnims = {}
+
+Settings = {
+    AbaDraggable = false,
+    AbaRotation = true,
+    EmoteDraggable = false
+}
+
+function getCharacterAndHumanoid()
+    local Character = LocalPlayer.Character
+    local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
+    return Character, Humanoid
+end
+
+function stopAllAnimations()
+    local _, humanoid = getCharacterAndHumanoid()
+    local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
+    if animator then
+        pcall(function()
+            for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+                track:Stop()
+            end
+        end)
+    end
+end
+
+function playAnimation(animationId)
+    local _, humanoid = getCharacterAndHumanoid()
+    if humanoid then
+        local animator = humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator", humanoid)
+        local animation = loadedAnims[animationId] or Instance.new("Animation")
+        if not loadedAnims[animationId] then
+            animation.AnimationId = "rbxassetid://" .. tostring(animationId)
+            loadedAnims[animationId] = animation
+        end
+        local success, track = pcall(function() return animator:LoadAnimation(animation) end)
+        if success and track then
+            track.Priority = Enum.AnimationPriority.Action
+            track:Play()
+            pcall(function() track:AdjustSpeed(1.2) end)
+        end
+    end
+end
+
+function turnCamera(degrees)
+    if not isActionActive then
+        isActionActive = true
+        local character, _ = getCharacterAndHumanoid()
+        local hrp = character and character:FindFirstChild("HumanoidRootPart")
+        if hrp then
+            pcall(function()
+                hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(degrees), 0)
+                local cameraPosition = Camera and Camera.CFrame.Position or hrp.Position + Vector3.new(0, 5, 0)
+                local cameraY = cameraPosition.Y
+                local offsetVector = cameraPosition - hrp.Position
+                local horizontalOffset = Vector3.new(offsetVector.X, 0, offsetVector.Z)
+                local rotatedOffset = CFrame.fromAxisAngle(Vector3.yAxis, math.rad(degrees)) * horizontalOffset
+                local newCameraLookAt = hrp.Position + rotatedOffset
+                if Camera and Camera:IsA("Camera") then
+                    Camera.CFrame = CFrame.lookAt(Vector3.new(newCameraLookAt.X, cameraY, newCameraLookAt.Z), hrp.Position)
+                end
+            end)
+        end
+        isActionActive = false
+    end
+end
+
+function tweenMove(direction, distance, duration)
+    if not isActionActive then
+        isActionActive = true
+        local character, _ = getCharacterAndHumanoid()
+        local hrp = character and character:FindFirstChild("HumanoidRootPart")
+        if hrp then
+            local tween = TweenService:Create(hrp, TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+                CFrame = hrp.CFrame * CFrame.new(direction * distance, 0, 0)
+            })
+            pcall(function() 
+                tween:Play() 
+                tween.Completed:Wait() 
+                tween:Destroy() 
+            end)
+        end
+        isActionActive = false
+    end
+end
+
+function applyBodyVelocity(directionX, distanceMultiplier, verticalForce, maxSpeed, duration)
+    if not isActionActive then
+        isActionActive = true
+        local character, _ = getCharacterAndHumanoid()
+        local hrp = character and character:FindFirstChild("HumanoidRootPart")
+        if hrp then
+            local bodyVelocity = Instance.new("BodyVelocity")
+            local velocityVector = hrp.CFrame.RightVector * directionX * distanceMultiplier + Vector3.new(0, verticalForce, 0)
+            if velocityVector.Magnitude == 0 then velocityVector = Vector3.new(0, 1, 0) end
+            bodyVelocity.Velocity = velocityVector.Unit * maxSpeed
+            bodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+            bodyVelocity.Parent = hrp
+            task.delay(duration, function() pcall(function() bodyVelocity:Destroy() end) end)
+        end
+        isActionActive = false
+    end
+end
+
+function M1_RESET_FUNCTION()
+    stopAllAnimations()
+    pcall(function() playAnimation(10480793962) end)
+    pcall(function() tweenMove(1, 26, 0.22) end)
+    
+    if Settings.AbaRotation then
+        pcall(function() turnCamera(70) end)
+    end
+    
+    task.wait(0.003)
+    pcall(function()
+        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Q, false, game)
+        VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Q, false, game)
+    end)
+end
+
+function EMOTE_DASH_FUNCTION()
+    stopAllAnimations()
+    pcall(function() playAnimation(10480793962) end)
+    pcall(function() turnCamera(90) end)
+    pcall(function() applyBodyVelocity(1, 38, 8, 95, 0.27) end)
+end
+
+ScreenGui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+ScreenGui.Name = "TechButtonsGui"
+ScreenGui.ResetOnSpawn = false
+
+m1Button = Instance.new("ImageButton", ScreenGui)
+m1Button.Size = UDim2.new(0, 60, 0, 60)
+m1Button.Position = UDim2.new(0.7, 0, 0.6, 0)
+m1Button.BackgroundTransparency = 1
+m1Button.Image = M1_IDLE
+m1Button.Visible = false
+
+emoteButton = Instance.new("ImageButton", ScreenGui)
+emoteButton.Size = UDim2.new(0, 60, 0, 60)
+emoteButton.Position = UDim2.new(0.85, 0, 0.6, 0)
+emoteButton.BackgroundTransparency = 1
+emoteButton.Image = EMOTE_IDLE
+emoteButton.Visible = false
+
+function makeButtonDraggable(btn, settingKey)
+    local dragToggle = false
+    local dragStart = nil
+    local startPos = nil
+
+    btn.InputBegan:Connect(function(input)
+        if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Settings[settingKey] then
+            dragToggle = true
+            dragStart = input.Position
+            startPos = btn.Position
+        end
+    end)
+    
+    btn.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragToggle = false
+        end
+    end)
+    
+    UIS.InputChanged:Connect(function(input)
+        if dragToggle and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            local delta = input.Position - dragStart
+            btn.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
+makeButtonDraggable(m1Button, "AbaDraggable")
+makeButtonDraggable(emoteButton, "EmoteDraggable")
+
+m1Button.MouseButton1Down:Connect(function() m1Button.Image = M1_PRESS end)
+m1Button.MouseButton1Up:Connect(function() m1Button.Image = M1_IDLE end)
+m1Button.MouseLeave:Connect(function() m1Button.Image = M1_IDLE end)
+m1Button.MouseButton1Click:Connect(function() pcall(M1_RESET_FUNCTION) end)
+
+emoteButton.MouseButton1Down:Connect(function() emoteButton.Image = EMOTE_PRESS end)
+emoteButton.MouseButton1Up:Connect(function() emoteButton.Image = EMOTE_IDLE end)
+emoteButton.MouseLeave:Connect(function() emoteButton.Image = EMOTE_IDLE end)
+emoteButton.MouseButton1Click:Connect(function() pcall(EMOTE_DASH_FUNCTION) end)
