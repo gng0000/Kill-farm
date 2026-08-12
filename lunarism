@@ -1,135 +1,608 @@
 local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/master/source.lua", true))()
 
 local Window = Luna:CreateWindow({
-	Name = "Lunarism TSB And Universal", -- This Is Title Of Your Window
-	Subtitle = nil, -- A Gray Subtitle next To the main title.
-	LogoID = "82795327169782", -- The Asset ID of your logo. Set to nil if you do not have a logo for Luna to use.
-	LoadingEnabled = true, -- Whether to enable the loading animation. Set to false if you do not want the loading screen or have your own custom one.
-	LoadingTitle = "Loading", -- Header for loading screen
-	LoadingSubtitle = "by 2elpk", -- Subtitle for loading screen
-
-	ConfigSettings = {
-		RootFolder = nil, -- The Root Folder Is Only If You Have A Hub With Multiple Game Scripts and u may remove it. DO NOT ADD A SLASH
-		ConfigFolder = "Configlunarism" -- The Name Of The Folder Where Luna Will Store Configs For This Script. DO NOT ADD A SLASH
-	},
-
-	KeySystem = false, -- As Of Beta 6, Luna Has officially Implemented A Key System!
-	KeySettings = {
-		Title = "Lunarism Key",
-		Subtitle = "Key System",
-		Note = "W speed",
-		SaveInRoot = false, -- Enabling will save the key in your RootFolder (YOU MUST HAVE ONE BEFORE ENABLING THIS OPTION)
-		SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-		Key = {"dovi_lilfemboy"}, -- List of keys that will be accepted by the system, please use a system like Pelican or Luarmor that provide key strings based on your HWID since putting a simple string is very easy to bypass
-		SecondAction = {
-			Enabled = true, -- Set to false if you do not want a second action,
-			Type = "Link", -- Link / Discord.
-			Parameter = "" -- If Type is Discord, then put your invite link (DO NOT PUT DISCORD.GG/). Else, put the full link of your key system here.
-		}
-	}
+    Name = "Lunarism TSB And Universal",
+    Subtitle = nil,
+    LogoID = "82795327169782",
+    LoadingEnabled = true,
+    LoadingTitle = "Loading",
+    LoadingSubtitle = "by 2elpk",
+    ConfigSettings = {
+        RootFolder = nil,
+        ConfigFolder = "Configlunarism"
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = "Lunarism Key",
+        Subtitle = "Key System",
+        Note = "W speed",
+        SaveInRoot = false,
+        SaveKey = true,
+        Key = {"dovi_lilfemboy"},
+        SecondAction = {
+            Enabled = true,
+            Type = "Link",
+            Parameter = ""
+        }
+    }
 })
 
 Window:CreateHomeTab({
-	SupportedExecutors = {""}, -- A Table Of Executors Your Script Supports. Add strings of the executor names for each executor.
-	DiscordInvite = "DDDc2HBweW", -- The Discord Invite Link. Do Not Include discord.gg/ | Only Include the code.
-	Icon = 1, -- By Default, The Icon Is The Home Icon. If You would like to change it to dashboard, replace the interger with 2
+    SupportedExecutors = {""},
+    DiscordInvite = "DDDc2HBweW",
+    Icon = 1
 })
 
-local Tab = Window:CreateTab({
-	Name = "TSB",
-	Icon = "view_in_ar",
-	ImageSource = "Material",
-	ShowTitle = true -- This will determine whether the big header text in the tab will show
+local Tabs = {}
+
+Tabs.TSB = Window:CreateTab({
+    Name = "TSB",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-local Button = Tab:CreateButton({
-	Name = "Supa legit",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-         loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/2753546c83053761e44664d36ffe5035d6e20fc8aee1d19f0eb7b933974ae537.lua"))()
-    	end
+Tabs.MM2 = Window:CreateTab({
+    Name = "MM2",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-local Button = Tab:CreateButton({
-	Name = "Camlock",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-         -- The function that takes place when the button is pressed
-    	end
+Tabs.Arsenal = Window:CreateTab({
+    Name = "Arsenal",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-
-local Button = Tab:CreateButton({
-	Name = "M1 reset",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-    
-    	end
+Tabs.BladeBall = Window:CreateTab({
+    Name = "Blade Ball",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-local Tab = Window:CreateTab({
-	Name = "Hubs",
-	Icon = "view_in_ar",
-	ImageSource = "Material",
-	ShowTitle = true -- This will determine whether the big header text in the tab will show
+Tabs.BloxFruits = Window:CreateTab({
+    Name = "Blox Fruits",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-Tab:CreateSection("TSB hubs")
-
-local Button = Tab:CreateButton({
-	Name = "Lunar hub Keyless",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-      loadstring(game:HttpGet("https://pastefy.app/ADhVPN6M/raw"))()
-    	end
+Tabs.Rivals = Window:CreateTab({
+    Name = "Rivals",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-local Button = Tab:CreateButton({
-	Name = "Dexhub V6 keyless",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/dragonballloginhelper/Dex-hub-v6-keyless/refs/heads/main/obfuscated.lua%20(1).txt"))()
-    	end
+Tabs.Brookhaven = Window:CreateTab({
+    Name = "Brookhaven",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-local Button = Tab:CreateButton({
-	Name = "VMT Hub lil buggy",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/Zuriyx/MainHub/refs/heads/main/VMT.lua"))()
-    	end
+Tabs.Universal = Window:CreateTab({
+    Name = "Universal",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-local Button = Tab:CreateButton({
-	Name = "ThanhDuyHub Keyless",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-      loadstring(game:HttpGet("https://pastefy.app/fffls8nx/raw"))()
-    	end
-}) 
-
-Tab:CreateSection("MM2 Hubs not released yet")
-
-local Button = Tab:CreateButton({
-	Name = "Button Example!",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-         -- The function that takes place when the button is pressed
-    	end
+Tabs.Hubs = Window:CreateTab({
+    Name = "Hubs",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-local Button = Tab:CreateButton({
-	Name = "Button Example!",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-         -- The function that takes place when the button is pressed
-    	end
+Tabs.Settings = Window:CreateTab({
+    Name = "Settings",
+    Icon = "settings",
+    ImageSource = "Material",
+    ShowTitle = true
 })
 
-local Button = Tab:CreateButton({
-	Name = "Button Example!",
-	Description = nil, -- Creates A Description For Users to know what the button does (looks bad if you use it all the time),
-    	Callback = function()
-         -- The function that takes place when the button is pressed
-    	end
+-- TSB
+Tabs.TSB:CreateSection("Main")
+Tabs.TSB:CreateSection("Combat")
+Tabs.TSB:CreateSection("Movement")
+
+-- Camlock + Silent Aim
+local camlockEnabled = false
+local camlockDraggable = false
+local camlockTargetPart = "HumanoidRootPart"
+local camlockMode = "Camlock"
+local camlockMaxDistance = 200
+
+Tabs.TSB:CreateToggle({
+    Name = "Camlock / Silent Aim",
+    Description = "Toggle camlock or silent aim functionality",
+    CurrentValue = false,
+    Callback = function(Value)
+        camlockEnabled = Value
+    end
+}, "TSB_Camlock")
+
+Tabs.TSB:CreateSlider({
+    Name = "Camlock Max Distance",
+    Range = {0, 500},
+    Increment = 10,
+    CurrentValue = 200,
+    Callback = function(Value)
+        camlockMaxDistance = Value
+    end
+}, "TSB_CamlockDistance")
+
+Tabs.TSB:CreateDropdown({
+    Name = "Camlock Mode",
+    Options = {"Camlock", "Silent Aim"},
+    CurrentOption = {"Camlock"},
+    Callback = function(Value)
+        camlockMode = Value[1]
+    end
+}, "TSB_CamlockMode")
+
+Tabs.TSB:CreateToggle({
+    Name = "Draggable Camlock Button",
+    Description = "Allow dragging the camlock button",
+    CurrentValue = false,
+    Callback = function(Value)
+        camlockDraggable = Value
+    end
+}, "TSB_CamlockDraggable")
+
+-- M1 Reset
+Tabs.TSB:CreateButton({
+    Name = "M1 Reset",
+    Description = "Execute M1 reset combo",
+    Callback = function()
+    end
 })
+
+-- Emote Dash
+Tabs.TSB:CreateButton({
+    Name = "Emote Dash",
+    Description = "Execute emote dash",
+    Callback = function()
+    end
+})
+
+Tabs.TSB:CreateToggle({
+    Name = "Draggable M1 Button",
+    Description = "Allow dragging the M1 button",
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_M1Draggable")
+
+Tabs.TSB:CreateToggle({
+    Name = "Draggable Emote Button",
+    Description = "Allow dragging the emote button",
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_EmoteDraggable")
+
+Tabs.TSB:CreateToggle({
+    Name = "M1 Rotation",
+    Description = "Enable rotation on M1 reset",
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_M1Rotation")
+
+-- Lethal Assist
+Tabs.TSB:CreateToggle({
+    Name = "Lethal Assist",
+    Description = "Auto jump and aim assist on lethal animation",
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_LethalAssist")
+
+-- Supa Tech
+Tabs.TSB:CreateToggle({
+    Name = "Supa Tech",
+    Description = "Enable supa tech functionality",
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_SupaTech")
+
+Tabs.TSB:CreateToggle({
+    Name = "Legit Height",
+    Description = "Enable legit height modification",
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_LegitHeight")
+
+Tabs.TSB:CreateToggle({
+    Name = "Lock Tilt",
+    Description = "Enable lock tilt",
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_LockTilt")
+
+Tabs.TSB:CreateToggle({
+    Name = "Cancel on Evasive",
+    Description = "Cancel supa tech on evasive",
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_CancelEvasive")
+
+Tabs.TSB:CreateToggle({
+    Name = "Shake Enabled",
+    Description = "Enable shake on supa tech",
+    CurrentValue = true,
+    Callback = function(Value)
+    end
+}, "TSB_ShakeEnabled")
+
+Tabs.TSB:CreateSlider({
+    Name = "Supa Cooldown Time",
+    Range = {0, 10},
+    Increment = 0.5,
+    CurrentValue = 4,
+    Callback = function(Value)
+    end
+}, "TSB_SupaCooldown")
+
+Tabs.TSB:CreateSlider({
+    Name = "Y Offset",
+    Range = {0, 10},
+    Increment = 0.1,
+    CurrentValue = 2.2,
+    Callback = function(Value)
+    end
+}, "TSB_YOffset")
+
+Tabs.TSB:CreateSlider({
+    Name = "Look Offset",
+    Range = {0, 5},
+    Increment = 0.1,
+    CurrentValue = 0.3,
+    Callback = function(Value)
+    end
+}, "TSB_LookOffset")
+
+-- Utility Buttons
+Tabs.TSB:CreateButton({
+    Name = "Supa legit",
+    Description = "Load supa legit script",
+    Callback = function()
+        loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/2753546c83053761e44664d36ffe5035d6e20fc8aee1d19f0eb7b933974ae537.lua"))()
+    end
+})
+
+Tabs.TSB:CreateButton({
+    Name = "Kyoto Macro",
+    Description = "Execute Kyoto macro (may be buggy)",
+    Callback = function()
+    end
+})
+
+Tabs.TSB:CreateButton({
+    Name = "DashPath",
+    Description = "Execute DashPath utility",
+    Callback = function()
+    end
+})
+
+Tabs.TSB:CreateButton({
+    Name = "Side Dash Assist",
+    Description = "Execute side dash assist",
+    Callback = function()
+    end
+})
+
+Tabs.TSB:CreateButton({
+    Name = "Auto Block",
+    Description = "Enable auto block",
+    Callback = function()
+    end
+})
+
+-- Hit Effects Section
+Tabs.TSB:CreateSection("Hit Effects")
+
+-- Full script loader
+Tabs.TSB:CreateButton({
+    Name = "Load Full TSB Script",
+    Description = "Load complete TSB script with all features (camlock, M1 reset, emote dash, lethal, supa tech)",
+    Callback = function()
+        -- Load WindUi thing
+        local UiLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
+        
+        -- First sum important stuff
+        -- Camlock + Silent Aim
+        local Players = game:GetService("Players")
+        local RunService = game:GetService("RunService")
+        local UIS = game:GetService("UserInputService")
+        local LocalPlayer = Players.LocalPlayer
+
+        local BASE_IMAGE_ID = "rbxassetid://125095856996538"
+        local PRESSED_IMAGE_ID = "rbxassetid://135803444128533"
+
+        local Settings = {
+            Enabled = false,
+            Draggable = false,
+            TargetPart = "HumanoidRootPart",
+            Mode = "Camlock",
+            MaxDistance = 200
+        }
+
+        local targetLocked = nil
+        local dragging = false
+        local dragStart, startPos
+
+        local camGui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+        camGui.ResetOnSpawn = false
+
+        local movableButton = Instance.new("ImageButton")
+        movableButton.Size = UDim2.new(0, 60, 0, 60)
+        movableButton.BackgroundTransparency = 1
+        movableButton.Image = BASE_IMAGE_ID
+        movableButton.Parent = camGui
+        movableButton.Position = UDim2.new(0.7, 0, 0.6, 0)
+        movableButton.Visible = false
+
+        movableButton.InputBegan:Connect(function(input)
+            if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and Settings.Draggable then
+                dragging = true
+                dragStart = input.Position
+                startPos = movableButton.Position
+                movableButton.Image = PRESSED_IMAGE_ID
+            end
+        end)
+
+        movableButton.InputEnded:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                dragging = false
+                movableButton.Image = BASE_IMAGE_ID
+            end
+        end)
+
+        UIS.InputChanged:Connect(function(input)
+            if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                local delta = input.Position - dragStart
+                movableButton.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+            end
+        end)
+
+        movableButton.MouseButton1Click:Connect(function()
+            Settings.Enabled = not Settings.Enabled
+        end)
+
+        local function getClosestTarget()
+            local closest = nil
+            local shortest = tonumber(Settings.MaxDistance) or math.huge
+            local myChar = LocalPlayer.Character
+            local cam = workspace.CurrentCamera
+            
+            if not cam then return nil end
+
+            local targetStr = Settings.TargetPart
+            if type(targetStr) ~= "string" or targetStr == "" then
+                targetStr = "HumanoidRootPart"
+            end
+
+            for _, plr in pairs(Players:GetPlayers()) do
+                if plr ~= LocalPlayer and plr.Character then
+                    local part = plr.Character:FindFirstChild(targetStr)
+                    local hum = plr.Character:FindFirstChild("Humanoid")
+                    if part and hum and hum.Health > 0 then
+                        local dist = (part.Position - cam.CFrame.Position).Magnitude
+                        if dist < shortest then
+                            shortest = dist
+                            closest = part
+                        end
+                    end
+                end
+            end
+
+            local liveFolder = workspace:FindFirstChild("Live")
+            if liveFolder then
+                for _, dummy in pairs(liveFolder:GetChildren()) do
+                    if dummy:IsA("Model") and dummy ~= myChar and not Players:GetPlayerFromCharacter(dummy) then
+                        local part = dummy:FindFirstChild(targetStr)
+                        local hum = dummy:FindFirstChild("Humanoid")
+                        if part and hum and hum.Health > 0 then
+                            local dist = (part.Position - cam.CFrame.Position).Magnitude
+                            if dist < shortest then
+                                shortest = dist
+                                closest = part
+                            end
+                        end
+                    end
+                end
+            end
+
+            return closest
+        end
+
+        RunService.RenderStepped:Connect(function()
+            if not Settings.Enabled then
+                targetLocked = nil
+                return
+            end
+
+            local targetStr = Settings.TargetPart
+            if type(targetStr) ~= "string" or targetStr == "" then
+                targetStr = "HumanoidRootPart"
+            end
+
+            local currentTargetValid = false
+            if targetLocked and targetLocked.Parent then
+                local humanoid = targetLocked.Parent:FindFirstChild("Humanoid")
+                if humanoid and humanoid.Health > 0 and targetLocked.Parent:FindFirstChild(targetStr) == targetLocked then
+                    currentTargetValid = true
+                end
+            end
+
+            if not currentTargetValid then
+                targetLocked = getClosestTarget()
+            end
+
+            local cam = workspace.CurrentCamera
+            if targetLocked and cam then
+                if Settings.Mode == "Camlock" then
+                    cam.CFrame = CFrame.lookAt(cam.CFrame.Position, targetLocked.Position)
+                elseif Settings.Mode == "Silent Aim" then
+                    local char = LocalPlayer.Character
+                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                    if hrp then
+                        local pos = targetLocked.Position
+                        hrp.CFrame = CFrame.lookAt(hrp.Position, Vector3.new(pos.X, hrp.Position.Y, pos.Z))
+                    end
+                end
+            end
+        end)
+        
+        -- Aba + EmoteD
+        Players = game:GetService("Players")
+        RunService = game:GetService("RunService")
+        UIS = game:GetService("UserInputService")
+        TweenService = game:GetService("TweenService")
+        Workspace = game:GetService("Workspace")
+        VirtualInputManager = game:GetService("VirtualInputManager")
+
+        LocalPlayer = Players.LocalPlayer
+        Camera = Workspace.CurrentCamera
+
+        M1_IDLE = "rbxassetid://95534553319958"
+        M1_PRESS = "rbxassetid://98264188479023"
+        EMOTE_IDLE = "rbxassetid://83007856881977"
+        EMOTE_PRESS = "rbxassetid://92438163139266"
+
+        isActionActive = false
+        loadedAnims = {}
+
+        Settings = {
+            AbaDraggable = false,
+            AbaRotation = false,
+            EmoteDraggable = false
+        }
+
+        function getCharacterAndHumanoid()
+            local Character = LocalPlayer.Character
+            local Humanoid = Character and Character:FindFirstChildOfClass("Humanoid")
+            return Character, Humanoid
+        end
+
+        function stopAllAnimations()
+            local _, humanoid = getCharacterAndHumanoid()
+            local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
+            if animator then
+                pcall(function()
+                    for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+                        track:Stop()
+                    end
+                end)
+            end
+        end
+
+        function playAnimation(animationId)
+            local _, humanoid = getCharacterAndHumanoid()
+            if humanoid then
+                local animator = humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator", humanoid)
+                local animation = loadedAnims[animationId] or Instance.new("Animation")
+                if not loadedAnims[animationId] then
+                    animation.AnimationId = "rbxassetid://" .. tostring(animationId)
+                    loadedAnims[animationId] = animation
+                end
+                local success, track = pcall(function() return animator:LoadAnimation(animation) end)
+                if success and track then
+                    track.Priority = Enum.AnimationPriority.Action
+                    track:Play()
+                    pcall(function() track:AdjustSpeed(1.2) end)
+                end
+            end
+        end
+
+        function turnCamera(degrees)
+            if not isActionActive then
+                isActionActive = true
+                local character, _ = getCharacterAndHumanoid()
+                local hrp = character and character:FindFirstChild("HumanoidRootPart")
+                if hrp then
+                    pcall(function()
+                        hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(degrees), 0)
+                        local cameraPosition = Camera and Camera.CFrame.Position or hrp.Position + Vector3.new(0, 5, 0)
+                        local cameraY = cameraPosition.Y
+                        local offsetVector = cameraPosition - hrp.Position
+                        local horizontalOffset = Vector3.new(offsetVector.X, 0, offsetVector.Z)
+                        local rotatedOffset = CFrame.fromAxisAngle(Vector3.yAxis, math.rad(degrees)) * horizontalOffset
+                        local newCameraLookAt = hrp.Position + rotatedOffset
+                        if Camera and Camera:IsA("Camera") then
+                            Camera.CFrame = CFrame.lookAt(Vector3.new(newCameraLookAt.X, cameraY, newCameraLookAt.Z), hrp.Position)
+                        end
+                    end)
+                end
+                isActionActive = false
+            end
+        end
+
+        function tweenMove(direction, distance, duration)
+            if not isActionActive then
+                isActionActive = true
+                local character, _ = getCharacterAndHumanoid()
+                local hrp = character and character:FindFirstChild("HumanoidRootPart")
+                if hrp then
+                    local tween = TweenService:Create(hrp, TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+                        CFrame = hrp.CFrame * CFrame.new(direction * distance, 0, 0)
+                    })
+                    pcall(function() 
+                        tween:Play() 
+                        tween.Completed:Wait() 
+                        tween:Destroy() 
+                    end)
+                end
+                isActionActive = false
+            end
+        end
+
+        function applyBodyVelocity(directionX, distanceMultiplier, verticalForce, maxSpeed, duration)
+            if not isActionActive then
+                isActionActive = true
+                local character, _ = getCharacterAndHumanoid()
+                local hrp = character and character:FindFirstChild("HumanoidRootPart")
+                if hrp then
+                    local bodyVelocity = Instance.new("BodyVelocity")
+                    local velocityVector = hrp.CFrame.RightVector * directionX * distanceMultiplier + Vector3.new(0, verticalForce, 0)
+                    if velocityVector.Magnitude == 0 then velocityVector = Vector3.new(0, 1, 0) end
+                    bodyVelocity.Velocity = velocityVector.Unit * maxSpeed
+                    bodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                    bodyVelocity.Parent = hrp
+                    task.delay(duration, function() pcall(function() bodyVelocity:Destroy() end) end)
+                end
+                isActionActive = false
+            end
+        end
+
+        function M1_RESET_FUNCTION()
+            stopAllAnimations()
+            pcall(function() playAnimation(10480793962) end)
+            pcall(function() tweenMove(1, 26, 0.22) end)
+            
+            if Settings.AbaRotation then
+                pcall(function() turnCamera(70) end)
+            end
+            
+            task.wait(0.003)
+            pcall(function()
+                VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Q, false, game)
+                VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Q, false, game)
+            end)
+        end
+
+        function EMOTE_DASH_FUNCTION()
+            stopAllAnimations()
+            pcall(function() playAnimation(10480793962) end)
+            pcall(function() turnCamera(90) end)
+            pcall(function() 
