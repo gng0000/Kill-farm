@@ -1,0 +1,283 @@
+local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/master/source.lua", true))()
+
+local Window = Luna:CreateWindow({
+    Name = "Lunarism TSB And Universal",
+    Subtitle = nil,
+    LogoID = "82795327169782",
+    LoadingEnabled = true,
+    LoadingTitle = "Loading",
+    LoadingSubtitle = "by 2elpk",
+    ConfigSettings = {
+        RootFolder = nil,
+        ConfigFolder = "Configlunarism"
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = "Lunarism Key",
+        Subtitle = "Key System",
+        Note = "W speed",
+        SaveInRoot = false,
+        SaveKey = true,
+        Key = {"dovi_lilfemboy"},
+        SecondAction = {
+            Enabled = true,
+            Type = "Link",
+            Parameter = ""
+        }
+    }
+})
+
+Window:CreateHomeTab({
+    SupportedExecutors = {""},
+    DiscordInvite = "DDDc2HBweW",
+    Icon = 1
+})
+
+local Tabs = {}
+
+Tabs.TSB = Window:CreateTab({
+    Name = "TSB",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.MM2 = Window:CreateTab({
+    Name = "MM2",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.Arsenal = Window:CreateTab({
+    Name = "Arsenal",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.BladeBall = Window:CreateTab({
+    Name = "Blade Ball",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.BloxFruits = Window:CreateTab({
+    Name = "Blox Fruits",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.Rivals = Window:CreateTab({
+    Name = "Rivals",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.Brookhaven = Window:CreateTab({
+    Name = "Brookhaven",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.Universal = Window:CreateTab({
+    Name = "Universal",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.Hubs = Window:CreateTab({
+    Name = "Hubs",
+    Icon = "view_in_ar",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+Tabs.Settings = Window:CreateTab({
+    Name = "Settings",
+    Icon = "settings",
+    ImageSource = "Material",
+    ShowTitle = true
+})
+
+-- TSB
+Tabs.TSB:CreateSection("Main")
+Tabs.TSB:CreateSection("Combat")
+Tabs.TSB:CreateSection("Movement")
+
+Tabs.TSB:CreateButton({
+    Name = "Supa legit",
+    Description = nil,
+    Callback = function()
+        loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/2753546c83053761e44664d36ffe5035d6e20fc8aee1d19f0eb7b933974ae537.lua"))()
+    end
+})
+
+Tabs.TSB:CreateButton({
+    Name = "Camlock",
+    Description = nil,
+    Callback = function()
+    end
+})
+
+Tabs.TSB:CreateButton({
+    Name = "M1 reset",
+    Description = nil,
+    Callback = function()
+    end
+})
+
+Tabs.TSB:CreateToggle({
+    Name = "Auto attack",
+    Description = nil,
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "TSB_AutoAttack")
+
+Tabs.TSB:CreateSlider({
+    Name = "Hit distance",
+    Range = {0, 200},
+    Increment = 5,
+    CurrentValue = 100,
+    Callback = function(Value)
+    end
+}, "TSB_HitDistance")
+
+-- MM2
+Tabs.MM2:CreateSection("Main")
+Tabs.MM2:CreateSection("ESP / visual tools")
+Tabs.MM2:CreateSection("Utilities")
+
+Tabs.MM2:CreateToggle({
+    Name = "ESP players",
+    Description = nil,
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "MM2_ESP")
+
+Tabs.MM2:CreateToggle({
+    Name = "Show murderer",
+    Description = nil,
+    CurrentValue = false,
+    Callback = function(Value)
+    end
+}, "MM2_MurdererESP")
+
+Tabs.MM2:CreateButton({
+    Name = "Reveal roles",
+    Description = nil,
+    Callback = function()
+    end
+})
+
+Tabs.MM2:CreateButton({
+    Name = "ESP colors",
+    Description = nil,
+    Callback = function()
+    end
+})
+
+-- Arsenal
+Tabs.Arsenal:CreateSection("Main")
+Tabs.Arsenal:CreateSection("Combat")
+Tabs.Arsenal:CreateSection("Utilities")
+
+-- Blade Ball
+Tabs.BladeBall:CreateSection("Main")
+Tabs.BladeBall:CreateSection("Combat")
+Tabs.BladeBall:CreateSection("Utilities")
+
+-- Blox Fruits
+Tabs.BloxFruits:CreateSection("Main")
+Tabs.BloxFruits:CreateSection("Combat")
+Tabs.BloxFruits:CreateSection("Movement")
+Tabs.BloxFruits:CreateSection("Utilities")
+
+-- Rivals
+Tabs.Rivals:CreateSection("Main")
+Tabs.Rivals:CreateSection("Combat")
+Tabs.Rivals:CreateSection("Utilities")
+
+-- Brookhaven
+Tabs.Brookhaven:CreateSection("Main")
+Tabs.Brookhaven:CreateSection("Roleplay")
+Tabs.Brookhaven:CreateSection("Utilities")
+
+-- Universal
+Tabs.Universal:CreateSection("Main")
+Tabs.Universal:CreateSection("Combat")
+Tabs.Universal:CreateSection("Movement")
+Tabs.Universal:CreateSection("Visuals")
+Tabs.Universal:CreateSection("Utilities")
+
+-- Hubs
+Tabs.Hubs:CreateSection("TSB Hubs")
+
+Tabs.Hubs:CreateButton({
+    Name = "Lunar hub Keyless",
+    Description = nil,
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/ADhVPN6M/raw"))()
+    end
+})
+
+Tabs.Hubs:CreateButton({
+    Name = "Dexhub V6 keyless",
+    Description = nil,
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dragonballloginhelper/Dex-hub-v6-keyless/refs/heads/main/obfuscated.lua%20(1).txt"))()
+    end
+})
+
+Tabs.Hubs:CreateButton({
+    Name = "VMT Hub lil buggy",
+    Description = nil,
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Zuriyx/MainHub/refs/heads/main/VMT.lua"))()
+    end
+})
+
+Tabs.Hubs:CreateButton({
+    Name = "ThanhDuyHub Keyless",
+    Description = nil,
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/fffls8nx/raw"))()
+    end
+})
+
+Tabs.Hubs:CreateSection("RIVALS Hubs")
+Tabs.Hubs:CreateSection("Brookhaven Hubs")
+Tabs.Hubs:CreateSection("Blox Fruit Hubs")
+Tabs.Hubs:CreateSection("Arsenal Hubs")
+Tabs.Hubs:CreateSection("MM2 Hubs")
+Tabs.Hubs:CreateSection("Universal Hubs")
+
+-- Settings
+Tabs.Settings:CreateSection("Config")
+Tabs.Settings:BuildConfigSection()
+
+Tabs.Settings:CreateSection("UI options")
+Tabs.Settings:CreateColorPicker({
+    Name = "Theme Color",
+    Color = Color3.fromRGB(86, 171, 128),
+    Flag = "ThemeColor",
+    Callback = function(Value)
+    end
+}, "ThemeColor")
+
+
+Tabs.Settings:CreateSlider({
+    Name = "UI Transparency",
+    Range = {0, 100},
+    Increment = 1,
+    CurrentValue = 10,
+    Callback = function(Value)
+    end
+}, "UITransparency")
