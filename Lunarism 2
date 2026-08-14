@@ -1,283 +1,419 @@
-local Luna = loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Softworks/Luna-Interface-Suite/refs/heads/master/source.lua", true))()
+-- Wait for game to load
+if not game:IsLoaded() then game.Loaded:Wait() end
 
-local Window = Luna:CreateWindow({
-    Name = "Lunarism TSB And Universal",
-    Subtitle = nil,
-    LogoID = "82795327169782",
-    LoadingEnabled = true,
-    LoadingTitle = "Loading",
-    LoadingSubtitle = "by 2elpk",
-    ConfigSettings = {
-        RootFolder = nil,
-        ConfigFolder = "Configlunarism"
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local VirtualUser = game:GetService("VirtualUser")
+local Camera = workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+--// Variables & Feature States \\--
+local Features = {
+    Camlock = { Enabled = false, Target = nil, Prediction = 0.13, AimPart = "HumanoidRootPart" },
+    Hitbox = { Enabled = false, Size = 4 },
+    ESP = { Enabled = false, Color = Color3.fromRGB(255, 0, 0) },
+    Movement = { WalkSpeed = 16, JumpPower = 50, AntiSlow = false },
+    Combat = { AutoM1 = false, AutoDash = false },
+    Visuals = { FOV = 70 },
+    Misc = { TrashTalk = false, SelectedMessage = "You're too slow!" }
+}
+
+local TrashTalkMessages = {
+    "You're too slow!",
+    "Is that all the strongest can do?",
+    "Better luck next time.",
+    "Lunarism on top!"
+}
+
+--// Logic Functions \\--
+local function getClosestPlayerToCursor()
+    local closest, shortestDistance = nil, math.huge
+    local mousePos = UserInputService:GetMouseLocation()
+
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local humanoid = player.Character:FindFirstChild("Humanoid")
+            if humanoid and humanoid.Health > 0 then
+                local screenPos, onScreen = Camera:WorldToViewportPoint(player.Character.HumanoidRootPart.Position)
+                if onScreen then
+                    local magnitude = (Vector2.new(screenPos.X, screenPos.Y) - mousePos).Magnitude
+                    if magnitude < shortestDistance then
+                        closest = player
+                        shortestDistance = magnitude
+                    end
+                end
+            end
+        end
+    end
+    return closest
+end
+
+-- ESP Setup
+local function updateESP()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            local char = player.Character
+            if char then
+                local highlight = char:FindFirstChild("LunarismESP")
+                if Features.ESP.Enabled then
+                    if not highlight then
+                        highlight = Instance.new("Highlight")
+                        highlight.Name = "LunarismESP"
+                        highlight.FillColor = Features.ESP.Color
+                        highlight.OutlineColor = Color3.new(1, 1, 1)
+                        highlight.FillTransparency = 0.5
+                        highlight.Parent = char
+                    end
+                else
+                    if highlight then highlight:Destroy() end
+                end
+            end
+        end
+    end
+end
+
+-- Main Loop (Camlock, Hitbox, AntiSlow)
+RunService.RenderStepped:Connect(function()
+    -- Camlock
+    if Features.Camlock.Enabled and Features.Camlock.Target and Features.Camlock.Target.Character then
+        local targetChar = Features.Camlock.Target.Character
+        local aimPart = targetChar:FindFirstChild(Features.Camlock.AimPart)
+        if aimPart then
+            local predictedPos = aimPart.Position + (aimPart.AssemblyLinearVelocity * Features.Camlock.Prediction)
+            Camera.CFrame = CFrame.new(Camera.CFrame.Position, predictedPos)
+        end
+    end
+
+    -- Hitbox Expander
+    if Features.Hitbox.Enabled then
+        for _, player in pairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local root = player.Character.HumanoidRootPart
+                root.Size = Vector3.new(Features.Hitbox.Size, Features.Hitbox.Size, Features.Hitbox.Size)
+                root.Transparency = 0.6
+                root.CanCollide = false
+            end
+        end
+    end
+    
+    -- Anti-Slow & Movement
+    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+        local hum = LocalPlayer.Character.Humanoid
+        if Features.Movement.AntiSlow or Features.Movement.WalkSpeed > 16 then
+            hum.WalkSpeed = Features.Movement.WalkSpeed
+        end
+        if Features.Movement.JumpPower > 50 then
+            hum.JumpPower = Features.Movement.JumpPower
+        end
+    end
+
+    -- Visuals
+    Camera.FieldOfView = Features.Visuals.FOV
+end)
+
+Players.PlayerAdded:Connect(updateESP)
+Players.PlayerRemoving:Connect(updateESP)
+
+-- Keybinds
+UserInputService.InputBegan:Connect(function(input, gp)
+    if gp then return end
+    if input.KeyCode == Enum.KeyCode.Q and Features.Camlock.Enabled then
+        Features.Camlock.Target = Features.Camlock.Target and nil or getClosestPlayerToCursor()
+    end
+end)
+
+-- Auto M1 Loop
+task.spawn(function()
+    while task.wait(0.1) do
+        if Features.Combat.AutoM1 then
+            VirtualUser:ClickButton1(Vector2.new())
+        end
+    end
+end)
+
+--// UI LIBRARY INITIALIZATION \\--
+local Starlight = loadstring(game:HttpGet("https://raw.nebulasoftworks.xyz/starlight"))()  
+local NebulaIcons = loadstring(game:HttpGet("https://raw.nebulasoftworks.xyz/nebula-icon-library-loader"))()
+
+local Window = Starlight:CreateWindow({
+    Name = "Lunarism",
+    Subtitle = "TSB Edition",
+    Icon = 10103310461,
+
+    LoadingSettings = {
+        Title = "Lunarism Hub",
+        Subtitle = "Authenticating...",
     },
-    KeySystem = false,
-    KeySettings = {
-        Title = "Lunarism Key",
-        Subtitle = "Key System",
-        Note = "W speed",
-        SaveInRoot = false,
-        SaveKey = true,
-        Key = {"dovi_lilfemboy"},
-        SecondAction = {
-            Enabled = true,
-            Type = "Link",
-            Parameter = ""
+
+    FileSettings = { ConfigFolder = "LunarismTSB" },
+})
+
+--// HOME TAB \\--
+Window:CreateHomeTab({
+    SupportedExecutors = {"Synapse Z", "Wave", "Delta", "Solara", "Macsploit"}, 
+    UnsupportedExecutors = {},
+    DiscordInvite = "ABwF3VcNyC", 
+    Backdrop = 0, 
+    IconStyle = 1, 
+    Changelog = {
+        {
+            Title = "v2.5 Expansion Update",
+            Date = "Today",
+            Description = "Removed Key System requirements.\nAdded official External Hubs tab.\nSeparated Keyless and Key-Required scripts for easy access.",
         }
     }
 })
 
-Window:CreateHomeTab({
-    SupportedExecutors = {""},
-    DiscordInvite = "DDDc2HBweW",
-    Icon = 1
-})
+local TabSection = Window:CreateTabSection("Main Features")
 
-local Tabs = {}
+--// EXTERNAL HUBS TAB (TSB Hubs) \\--
+do
+    local Tab = TabSection:CreateTab({
+        Name = "External Hubs",
+        Icon = NebulaIcons:GetIcon('layout-dashboard', 'Lucide'),
+        Columns = 2,
+    }, "ExtHubsTab_Index")
 
-Tabs.TSB = Window:CreateTab({
-    Name = "TSB",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    -- Column 1: Keyless
+    local KeylessGroupbox = Tab:CreateGroupbox({ Name = "Keyless Scripts (Instant)", Column = 1 }, "KeylessBox_Index")
+    
+    KeylessGroupbox:CreateParagraph({
+        Name = "Direct Execution",
+        Content = "These scripts do not require you to complete linkvertises or fetch keys. Clicking them will execute the hub directly.",
+    }, "KeylessInfo_Index")
 
-Tabs.MM2 = Window:CreateTab({
-    Name = "MM2",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    KeylessGroupbox:CreateButton({
+        Name = "Execute Lunar Hub",
+        Icon = NebulaIcons:GetIcon('moon', 'Lucide'),
+        Callback = function()
+            loadstring(game:HttpGet("https://pastefy.app/ADhVPN6M/raw"))()
+        end,
+    }, "LunarHubBtn_Index")
 
-Tabs.Arsenal = Window:CreateTab({
-    Name = "Arsenal",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    KeylessGroupbox:CreateButton({
+        Name = "Execute Dex Hub v6",
+        Icon = NebulaIcons:GetIcon('terminal', 'Lucide'),
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/dragonballloginhelper/Dex-hub-v6-keyless/refs/heads/main/obfuscated.lua%20(1).txt"))()
+        end,
+    }, "DexHubBtn_Index")
 
-Tabs.BladeBall = Window:CreateTab({
-    Name = "Blade Ball",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    KeylessGroupbox:CreateButton({
+        Name = "Execute ThanhDuyHub",
+        Icon = NebulaIcons:GetIcon('swords', 'Lucide'),
+        Callback = function()
+            loadstring(game:HttpGet("https://pastefy.app/fffls8nx/raw"))()
+        end,
+    }, "ThanhDuyBtn_Index")
 
-Tabs.BloxFruits = Window:CreateTab({
-    Name = "Blox Fruits",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    KeylessGroupbox:CreateButton({
+        Name = "Execute VMT Hub",
+        Icon = NebulaIcons:GetIcon('zap', 'Lucide'),
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Zuriyx/MainHub/refs/heads/main/VMT.lua"))()
+        end,
+    }, "VMTBtn_Index")
 
-Tabs.Rivals = Window:CreateTab({
-    Name = "Rivals",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    -- Column 2: Key Required
+    local KeyGroupbox = Tab:CreateGroupbox({ Name = "Key-System Scripts", Column = 2 }, "KeyedBox_Index")
 
-Tabs.Brookhaven = Window:CreateTab({
-    Name = "Brookhaven",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    KeyGroupbox:CreateParagraph({
+        Name = "Authentication Required",
+        Content = "These hubs utilize their own separate key systems.\n\n⭐ TERMINATOR FREE KEY ⭐\nTerminator1_free",
+    }, "KeyedInfo_Index")
 
-Tabs.Universal = Window:CreateTab({
-    Name = "Universal",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    KeyGroupbox:CreateButton({
+        Name = "Execute Vexonhub",
+        Icon = NebulaIcons:GetIcon('key', 'Lucide'),
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/DiosDi/VexonHub/refs/heads/main/VexonHub"))()
+        end,
+    }, "VexonBtn_Index")
 
-Tabs.Hubs = Window:CreateTab({
-    Name = "Hubs",
-    Icon = "view_in_ar",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    KeyGroupbox:CreateButton({
+        Name = "Execute Terminator Hub",
+        Icon = NebulaIcons:GetIcon('shield-alert', 'Lucide'),
+        Callback = function()
+            loadstring(game:HttpGet("https://pastefy.app/iUF6Mwu3/raw"))()
+        end,
+    }, "TerminatorBtn_Index")
 
-Tabs.Settings = Window:CreateTab({
-    Name = "Settings",
-    Icon = "settings",
-    ImageSource = "Material",
-    ShowTitle = true
-})
+    KeyGroupbox:CreateButton({
+        Name = "Execute Dovi Hub",
+        Icon = NebulaIcons:GetIcon('lock', 'Lucide'),
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/needanewphone32-eng/tsbfiles/refs/heads/main/Main.lua"))()
+        end,
+    }, "DoviBtn_Index")
+end
 
--- TSB
-Tabs.TSB:CreateSection("Main")
-Tabs.TSB:CreateSection("Combat")
-Tabs.TSB:CreateSection("Movement")
+--// COMBAT TAB \\--
+do
+    local Tab = TabSection:CreateTab({
+        Name = "Combat",
+        Icon = NebulaIcons:GetIcon('crosshair', 'Lucide'),
+        Columns = 2,
+    }, "CombatTab_Index")
 
-Tabs.TSB:CreateButton({
-    Name = "Supa legit",
-    Description = nil,
-    Callback = function()
-        loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/2753546c83053761e44664d36ffe5035d6e20fc8aee1d19f0eb7b933974ae537.lua"))()
-    end
-})
+    -- Groupbox: Aiming
+    local Groupbox = Tab:CreateGroupbox({ Name = "Camlock & Aim", Column = 1 }, "AimBox_Index")
+    
+    Groupbox:CreateParagraph({
+        Name = "Targeting Info",
+        Content = "Press 'Q' to lock onto the closest enemy to your mouse cursor.",
+    }, "AimPara_Index")
 
-Tabs.TSB:CreateButton({
-    Name = "Camlock",
-    Description = nil,
-    Callback = function()
-    end
-})
+    Groupbox:CreateToggle({
+        Name = "Enable Camlock",
+        CurrentValue = false,
+        Style = 2,
+        Callback = function(Value) Features.Camlock.Enabled = Value end,
+    }, "CamlockTgl_Index")
 
-Tabs.TSB:CreateButton({
-    Name = "M1 reset",
-    Description = nil,
-    Callback = function()
-    end
-})
+    local Label = Groupbox:CreateLabel({ Name = "Target Aim Part" }, "AimPartLabel_Index")
+    local Dropdown = Label:AddDropdown({
+        Options = {"HumanoidRootPart", "Head", "UpperTorso"},
+        CurrentOptions = {"HumanoidRootPart"},
+        Placeholder = "Select Part",
+        Callback = function(Options)
+            Features.Camlock.AimPart = Options[1]
+        end,
+    }, "AimPartDrop_Index")
 
-Tabs.TSB:CreateToggle({
-    Name = "Auto attack",
-    Description = nil,
-    CurrentValue = false,
-    Callback = function(Value)
-    end
-}, "TSB_AutoAttack")
+    Groupbox:CreateSlider({
+        Name = "Prediction Factor",
+        Icon = NebulaIcons:GetIcon('crosshair', 'Lucide'),
+        Range = {0, 100},
+        CurrentValue = 13,
+        Increment = 1,
+        Suffix = "%",
+        Callback = function(Value) Features.Camlock.Prediction = Value / 100 end,
+    }, "PredictionSldr_Index")
 
-Tabs.TSB:CreateSlider({
-    Name = "Hit distance",
-    Range = {0, 200},
-    Increment = 5,
-    CurrentValue = 100,
-    Callback = function(Value)
-    end
-}, "TSB_HitDistance")
+    Groupbox:CreateDivider()
 
--- MM2
-Tabs.MM2:CreateSection("Main")
-Tabs.MM2:CreateSection("ESP / visual tools")
-Tabs.MM2:CreateSection("Utilities")
+    -- Groupbox: Modifications
+    local Groupbox2 = Tab:CreateGroupbox({ Name = "Combat Modifications", Column = 2 }, "ModBox_Index")
 
-Tabs.MM2:CreateToggle({
-    Name = "ESP players",
-    Description = nil,
-    CurrentValue = false,
-    Callback = function(Value)
-    end
-}, "MM2_ESP")
+    Groupbox2:CreateToggle({
+        Name = "Hitbox Expander",
+        CurrentValue = false,
+        Style = 2,
+        Callback = function(Value) Features.Hitbox.Enabled = Value end,
+    }, "HitboxTgl_Index")
 
-Tabs.MM2:CreateToggle({
-    Name = "Show murderer",
-    Description = nil,
-    CurrentValue = false,
-    Callback = function(Value)
-    end
-}, "MM2_MurdererESP")
+    Groupbox2:CreateSlider({
+        Name = "Hitbox Size",
+        Icon = NebulaIcons:GetIcon('box', 'Lucide'),
+        Range = {2, 25},
+        CurrentValue = 4,
+        Increment = 1,
+        Callback = function(Value) Features.Hitbox.Size = Value end,
+    }, "HitboxSldr_Index")
 
-Tabs.MM2:CreateButton({
-    Name = "Reveal roles",
-    Description = nil,
-    Callback = function()
-    end
-})
+    Groupbox2:CreateToggle({
+        Name = "Auto M1 (Spam Click)",
+        CurrentValue = false,
+        Style = 2,
+        Callback = function(Value) Features.Combat.AutoM1 = Value end,
+    }, "AutoM1Tgl_Index")
+end
 
-Tabs.MM2:CreateButton({
-    Name = "ESP colors",
-    Description = nil,
-    Callback = function()
-    end
-})
+--// VISUALS & ESP TAB \\--
+do
+    local Tab = TabSection:CreateTab({
+        Name = "Visuals",
+        Icon = NebulaIcons:GetIcon('eye', 'Lucide'),
+        Columns = 2,
+    }, "VisTab_Index")
 
--- Arsenal
-Tabs.Arsenal:CreateSection("Main")
-Tabs.Arsenal:CreateSection("Combat")
-Tabs.Arsenal:CreateSection("Utilities")
+    local Groupbox = Tab:CreateGroupbox({ Name = "Player ESP", Column = 1 }, "ESPBox_Index")
 
--- Blade Ball
-Tabs.BladeBall:CreateSection("Main")
-Tabs.BladeBall:CreateSection("Combat")
-Tabs.BladeBall:CreateSection("Utilities")
+    Groupbox:CreateToggle({
+        Name = "Enable Player Highlight ESP",
+        CurrentValue = false,
+        Style = 2,
+        Callback = function(Value)
+            Features.ESP.Enabled = Value
+            updateESP()
+        end,
+    }, "ESPTgl_Index")
 
--- Blox Fruits
-Tabs.BloxFruits:CreateSection("Main")
-Tabs.BloxFruits:CreateSection("Combat")
-Tabs.BloxFruits:CreateSection("Movement")
-Tabs.BloxFruits:CreateSection("Utilities")
+    Groupbox:CreateButton({
+        Name = "Force Refresh ESP",
+        Icon = NebulaIcons:GetIcon('refresh-cw', 'Lucide'),
+        Callback = updateESP,
+    }, "RefreshESPBtn_Index")
 
--- Rivals
-Tabs.Rivals:CreateSection("Main")
-Tabs.Rivals:CreateSection("Combat")
-Tabs.Rivals:CreateSection("Utilities")
+    local Groupbox2 = Tab:CreateGroupbox({ Name = "Local Visuals", Column = 2 }, "LocalVisBox_Index")
 
--- Brookhaven
-Tabs.Brookhaven:CreateSection("Main")
-Tabs.Brookhaven:CreateSection("Roleplay")
-Tabs.Brookhaven:CreateSection("Utilities")
+    Groupbox2:CreateSlider({
+        Name = "Field of View (FOV)",
+        Icon = NebulaIcons:GetIcon('camera', 'Lucide'),
+        Range = {70, 120},
+        CurrentValue = 70,
+        Increment = 1,
+        Callback = function(Value) Features.Visuals.FOV = Value end,
+    }, "FOVSldr_Index")
+end
 
--- Universal
-Tabs.Universal:CreateSection("Main")
-Tabs.Universal:CreateSection("Combat")
-Tabs.Universal:CreateSection("Movement")
-Tabs.Universal:CreateSection("Visuals")
-Tabs.Universal:CreateSection("Utilities")
+--// MOVEMENT & MISC TAB \\--
+do
+    local Tab = TabSection:CreateTab({
+        Name = "Misc",
+        Icon = NebulaIcons:GetIcon('user-cog', 'Lucide'),
+        Columns = 1,
+    }, "MiscTab_Index")
 
--- Hubs
-Tabs.Hubs:CreateSection("TSB Hubs")
+    local Groupbox = Tab:CreateGroupbox({ Name = "Movement & Trolling", Column = 1 }, "MoveBox_Index")
 
-Tabs.Hubs:CreateButton({
-    Name = "Lunar hub Keyless",
-    Description = nil,
-    Callback = function()
-        loadstring(game:HttpGet("https://pastefy.app/ADhVPN6M/raw"))()
-    end
-})
+    Groupbox:CreateSlider({
+        Name = "WalkSpeed Override",
+        Icon = NebulaIcons:GetIcon('gauge', 'Lucide'),
+        Range = {16, 200},
+        CurrentValue = 16,
+        Increment = 1,
+        Callback = function(Value) Features.Movement.WalkSpeed = Value end,
+    }, "SpeedSldr_Index")
 
-Tabs.Hubs:CreateButton({
-    Name = "Dexhub V6 keyless",
-    Description = nil,
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/dragonballloginhelper/Dex-hub-v6-keyless/refs/heads/main/obfuscated.lua%20(1).txt"))()
-    end
-})
+    Groupbox:CreateSlider({
+        Name = "JumpPower Override",
+        Icon = NebulaIcons:GetIcon('arrow-up', 'Lucide'),
+        Range = {50, 200},
+        CurrentValue = 50,
+        Increment = 1,
+        Callback = function(Value) Features.Movement.JumpPower = Value end,
+    }, "JumpSldr_Index")
 
-Tabs.Hubs:CreateButton({
-    Name = "VMT Hub lil buggy",
-    Description = nil,
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Zuriyx/MainHub/refs/heads/main/VMT.lua"))()
-    end
-})
+    Groupbox:CreateToggle({
+        Name = "Anti-Slow (Bypass WalkSpeed Debuffs)",
+        CurrentValue = false,
+        Style = 2,
+        Callback = function(Value) Features.Movement.AntiSlow = Value end,
+    }, "AntiSlowTgl_Index")
 
-Tabs.Hubs:CreateButton({
-    Name = "ThanhDuyHub Keyless",
-    Description = nil,
-    Callback = function()
-        loadstring(game:HttpGet("https://pastefy.app/fffls8nx/raw"))()
-    end
-})
+    Groupbox:CreateDivider()
 
-Tabs.Hubs:CreateSection("RIVALS Hubs")
-Tabs.Hubs:CreateSection("Brookhaven Hubs")
-Tabs.Hubs:CreateSection("Blox Fruit Hubs")
-Tabs.Hubs:CreateSection("Arsenal Hubs")
-Tabs.Hubs:CreateSection("MM2 Hubs")
-Tabs.Hubs:CreateSection("Universal Hubs")
+    local Label = Groupbox:CreateLabel({ Name = "Kill Say Message" }, "TrashTalkLabel_Index")
+    local Dropdown = Label:AddDropdown({
+        Options = TrashTalkMessages,
+        CurrentOptions = {TrashTalkMessages[1]},
+        Placeholder = "Select a message...",
+        Callback = function(Options)
+            Features.Misc.SelectedMessage = Options[1]
+        end,
+    }, "TrashTalkDrop_Index")
+    
+    Groupbox:CreateButton({
+        Name = "Test Trash Talk",
+        Icon = NebulaIcons:GetIcon('message-square', 'Lucide'),
+        Callback = function()
+            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+            if ReplicatedStorage:FindFirstChild("DefaultChatSystemChatEvents") then
+                ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Features.Misc.SelectedMessage, "All")
+            end
+        end,
+    }, "TestTalkBtn_Index")
+end
 
--- Settings
-Tabs.Settings:CreateSection("Config")
-Tabs.Settings:BuildConfigSection()
-
-Tabs.Settings:CreateSection("UI options")
-Tabs.Settings:CreateColorPicker({
-    Name = "Theme Color",
-    Color = Color3.fromRGB(86, 171, 128),
-    Flag = "ThemeColor",
-    Callback = function(Value)
-    end
-}, "ThemeColor")
-
-
-Tabs.Settings:CreateSlider({
-    Name = "UI Transparency",
-    Range = {0, 100},
-    Increment = 1,
-    CurrentValue = 10,
-    Callback = function(Value)
-    end
-}, "UITransparency")
