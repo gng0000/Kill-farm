@@ -20,9 +20,9 @@ local Features = {
 }
 
 local TrashTalkMessages = {
-    "You're too slow!",
-    "Is that all the strongest can do?",
-    "Better luck next time.",
+    "It hurts breathing the same air as this creature.",
+    "You're trash lol",
+    "ez.",
     "Lunarism on top!"
 }
 
