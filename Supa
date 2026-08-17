@@ -1,0 +1,424 @@
+-- ts file was generated at discord.gg/25ms
+
+local _call5 = game:GetService('TweenService')
+local _call7 = game:GetService('UserInputService')
+
+game:GetService('RunService')
+
+local _LocalPlayer10 = game:GetService('Players').LocalPlayer
+local _call14 = Instance.new('ScreenGui')
+
+_call14.Name = 'Merebennie_StickDashGui'
+_call14.ResetOnSpawn = false
+_call14.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+_call14.IgnoreGuiInset = true
+_call14.DisplayOrder = 9999
+_call14.Parent = _LocalPlayer10:FindFirstChild('PlayerGui')
+
+local _call18 = Instance.new('TextButton')
+
+_call18.Name = 'StickDashToggle'
+_call18.Size = UDim2.new(0, 140, 0, 25)
+_call18.Position = UDim2.new(0.4, 0, 0.8, 0)
+_call18.Text = 'Lvs Tech: On'
+_call18.Font = Enum.Font.GothamBold
+_call18.TextScaled = true
+_call18.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_call18.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call18.TextStrokeTransparency = 1
+_call18.AutoButtonColor = false
+_call18.ZIndex = 9999
+_call18.Parent = _call14
+
+local _call30 = Instance.new('UICorner')
+
+_call30.CornerRadius = UDim.new(0, 8)
+_call30.Parent = _call18
+
+local _call34 = Instance.new('Sound')
+
+_call34.Name = 'ButtonClickSound'
+_call34.SoundId = 'rbxassetid://6042053626'
+_call34.Volume = 1
+_call34.Looped = false
+_call34.Parent = _call18
+
+_call18.MouseButton1Click:Connect(function(...)
+    _call34:Play()
+    _call18:TweenSize(UDim2.new(0, 136, 0, 23), 'Out', 'Quad', 0.05, true)
+    task.wait(0.05)
+    _call18:TweenSize(UDim2.new(0, 140, 0, 25), 'Out', 'Quad', 0.05, true)
+end)
+_call18.InputBegan:Connect(function(...)
+    local _52_vararg1 = ...
+    local _ = _52_vararg1.UserInputType == Enum.UserInputType.MouseButton1
+    local _ = _52_vararg1.UserInputType == Enum.UserInputType.Touch
+end)
+_call18.InputChanged:Connect(function(...)
+    local _64_vararg1 = ...
+    local _ = _64_vararg1.UserInputType == Enum.UserInputType.MouseMovement
+    local _ = _64_vararg1.UserInputType == Enum.UserInputType.Touch
+end)
+_call7.InputChanged:Connect(function(...) end)
+_call18.MouseButton1Click:Connect(function(...)
+    _call18.Text = 'Lvs Tech: Off'
+    _call18.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    _call18.TextColor3 = Color3.fromRGB(255, 255, 255)
+end)
+
+local _call86 = Instance.new('Frame')
+
+_call86.Name = 'SettingsFrame'
+_call86.Size = UDim2.new(0, 250, 0, 290)
+_call86.Position = UDim2.new(0.4, 0, 0.4, 0)
+_call86.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+_call86.BorderSizePixel = 0
+_call86.ZIndex = 10000
+_call86.Parent = _call14
+
+local _call94 = Instance.new('UICorner')
+
+_call94.CornerRadius = UDim.new(0, 8)
+_call94.Parent = _call86
+
+local _call98 = Instance.new('TextLabel')
+
+_call98.Size = UDim2.new(1, -40, 0, 35)
+_call98.Position = UDim2.new(0, 10, 0, 0)
+_call98.BackgroundTransparency = 1
+_call98.Text = 'Lvs Tech Settings'
+_call98.Font = Enum.Font.GothamBold
+_call98.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call98.TextSize = 14
+_call98.TextXAlignment = Enum.TextXAlignment.Left
+_call98.ZIndex = 10001
+_call98.Parent = _call86
+
+local _call110 = Instance.new('TextButton')
+
+_call110.Size = UDim2.new(0, 25, 0, 25)
+_call110.Position = UDim2.new(1, -30, 0, 5)
+_call110.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+_call110.Text = '-'
+_call110.Font = Enum.Font.GothamBold
+_call110.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call110.TextSize = 14
+_call110.ZIndex = 10001
+_call110.Parent = _call86
+
+local _call122 = Instance.new('UICorner')
+
+_call122.CornerRadius = UDim.new(0, 6)
+_call122.Parent = _call110
+
+local _call126 = Instance.new('UIListLayout')
+
+_call126.SortOrder = Enum.SortOrder.LayoutOrder
+_call126.Padding = UDim.new(0, 6)
+_call126.Parent = _call86
+_call98.LayoutOrder = 1
+_call110.LayoutOrder = 1
+
+local _call132 = Instance.new('Frame')
+
+_call132.Size = UDim2.new(1, -20, 0, 40)
+_call132.BackgroundTransparency = 1
+_call132.ZIndex = 10000
+_call132.Parent = _call86
+
+local _call136 = Instance.new('TextLabel')
+
+_call136.Size = UDim2.new(0.55, 0, 1, 0)
+_call136.BackgroundTransparency = 1
+_call136.Text = 'Teleport Dist:'
+_call136.Font = Enum.Font.Gotham
+_call136.TextColor3 = Color3.fromRGB(200, 200, 200)
+_call136.TextSize = 12
+_call136.TextXAlignment = Enum.TextXAlignment.Left
+_call136.ZIndex = 10001
+_call136.Parent = _call132
+
+local _call146 = Instance.new('TextBox')
+
+_call146.Size = UDim2.new(0.42, 0, 0.8, 0)
+_call146.Position = UDim2.new(0.58, 0, 0.1, 0)
+_call146.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+_call146.Text = '10'
+_call146.Font = Enum.Font.GothamBold
+_call146.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call146.TextSize = 12
+_call146.ZIndex = 10001
+_call146.Parent = _call132
+
+local _call158 = Instance.new('UICorner')
+
+_call158.CornerRadius = UDim.new(0, 6)
+_call158.Parent = _call146
+
+_call146.FocusLost:Connect(function(...)
+    local _ = _call146.Text
+
+    _call146.Text = '10'
+end)
+
+local _call167 = Instance.new('Frame')
+
+_call167.Size = UDim2.new(1, -20, 0, 40)
+_call167.BackgroundTransparency = 1
+_call167.ZIndex = 10000
+_call167.Parent = _call86
+
+local _call171 = Instance.new('TextLabel')
+
+_call171.Size = UDim2.new(0.55, 0, 1, 0)
+_call171.BackgroundTransparency = 1
+_call171.Text = 'Stick Duration:'
+_call171.Font = Enum.Font.Gotham
+_call171.TextColor3 = Color3.fromRGB(200, 200, 200)
+_call171.TextSize = 12
+_call171.TextXAlignment = Enum.TextXAlignment.Left
+_call171.ZIndex = 10001
+_call171.Parent = _call167
+
+local _call181 = Instance.new('TextBox')
+
+_call181.Size = UDim2.new(0.42, 0, 0.8, 0)
+_call181.Position = UDim2.new(0.58, 0, 0.1, 0)
+_call181.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+_call181.Text = '0'
+_call181.Font = Enum.Font.GothamBold
+_call181.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call181.TextSize = 12
+_call181.ZIndex = 10001
+_call181.Parent = _call167
+
+local _call193 = Instance.new('UICorner')
+
+_call193.CornerRadius = UDim.new(0, 6)
+_call193.Parent = _call181
+
+_call181.FocusLost:Connect(function(...)
+    local _ = _call181.Text
+
+    _call181.Text = '0'
+end)
+
+local _call202 = Instance.new('Frame')
+
+_call202.Size = UDim2.new(1, -20, 0, 40)
+_call202.BackgroundTransparency = 1
+_call202.ZIndex = 10000
+_call202.Parent = _call86
+
+local _call206 = Instance.new('TextLabel')
+
+_call206.Size = UDim2.new(0.55, 0, 1, 0)
+_call206.BackgroundTransparency = 1
+_call206.Text = 'Camlock Dur:'
+_call206.Font = Enum.Font.Gotham
+_call206.TextColor3 = Color3.fromRGB(200, 200, 200)
+_call206.TextSize = 12
+_call206.TextXAlignment = Enum.TextXAlignment.Left
+_call206.ZIndex = 10001
+_call206.Parent = _call202
+
+local _call216 = Instance.new('TextBox')
+
+_call216.Size = UDim2.new(0.42, 0, 0.8, 0)
+_call216.Position = UDim2.new(0.58, 0, 0.1, 0)
+_call216.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+_call216.Text = '0'
+_call216.Font = Enum.Font.GothamBold
+_call216.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call216.TextSize = 12
+_call216.ZIndex = 10001
+_call216.Parent = _call202
+
+local _call228 = Instance.new('UICorner')
+
+_call228.CornerRadius = UDim.new(0, 6)
+_call228.Parent = _call216
+
+_call216.FocusLost:Connect(function(...)
+    local _ = _call216.Text
+
+    _call216.Text = '0'
+end)
+
+local _call237 = Instance.new('Frame')
+
+_call237.Size = UDim2.new(1, -20, 0, 40)
+_call237.BackgroundTransparency = 1
+_call237.ZIndex = 10000
+_call237.Parent = _call86
+
+local _call241 = Instance.new('TextLabel')
+
+_call241.Size = UDim2.new(0.55, 0, 1, 0)
+_call241.BackgroundTransparency = 1
+_call241.Text = 'Anim Delay:'
+_call241.Font = Enum.Font.Gotham
+_call241.TextColor3 = Color3.fromRGB(200, 200, 200)
+_call241.TextSize = 12
+_call241.TextXAlignment = Enum.TextXAlignment.Left
+_call241.ZIndex = 10001
+_call241.Parent = _call237
+
+local _call251 = Instance.new('TextBox')
+
+_call251.Size = UDim2.new(0.42, 0, 0.8, 0)
+_call251.Position = UDim2.new(0.58, 0, 0.1, 0)
+_call251.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+_call251.Text = '0.23'
+_call251.Font = Enum.Font.GothamBold
+_call251.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call251.TextSize = 12
+_call251.ZIndex = 10001
+_call251.Parent = _call237
+
+local _call263 = Instance.new('UICorner')
+
+_call263.CornerRadius = UDim.new(0, 6)
+_call263.Parent = _call251
+
+_call251.FocusLost:Connect(function(...)
+    local _ = _call251.Text
+
+    _call251.Text = '0.23'
+end)
+
+local _call272 = Instance.new('Frame')
+
+_call272.Size = UDim2.new(1, -20, 0, 40)
+_call272.BackgroundTransparency = 1
+_call272.ZIndex = 10000
+_call272.Parent = _call86
+
+local _call276 = Instance.new('TextLabel')
+
+_call276.Size = UDim2.new(0.55, 0, 1, 0)
+_call276.BackgroundTransparency = 1
+_call276.Text = 'Upward TP:'
+_call276.Font = Enum.Font.Gotham
+_call276.TextColor3 = Color3.fromRGB(200, 200, 200)
+_call276.TextSize = 12
+_call276.TextXAlignment = Enum.TextXAlignment.Left
+_call276.ZIndex = 10001
+_call276.Parent = _call272
+
+local _call286 = Instance.new('TextBox')
+
+_call286.Size = UDim2.new(0.42, 0, 0.8, 0)
+_call286.Position = UDim2.new(0.58, 0, 0.1, 0)
+_call286.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+_call286.Text = '7'
+_call286.Font = Enum.Font.GothamBold
+_call286.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call286.TextSize = 12
+_call286.ZIndex = 10001
+_call286.Parent = _call272
+
+local _call298 = Instance.new('UICorner')
+
+_call298.CornerRadius = UDim.new(0, 6)
+_call298.Parent = _call286
+
+_call286.FocusLost:Connect(function(...)
+    error('internal 583: <25ms: infinitelooperror>')
+end)
+_call86.InputBegan:Connect(function(...) end)
+_call86.InputChanged:Connect(function(...) end)
+_call7.InputChanged:Connect(function(...) end)
+_call110.MouseButton1Click:Connect(function(...) end)
+
+local _call323 = Instance.new('Frame')
+
+_call323.Name = 'CreditFrame'
+_call323.Size = UDim2.new(0, 200, 0, 100)
+_call323.Position = UDim2.new(1, 0, 0.1, 0)
+_call323.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_call323.ZIndex = 9999
+_call323.Parent = _call14
+
+local _call331 = Instance.new('UICorner')
+
+_call331.CornerRadius = UDim.new(0, 8)
+_call331.Parent = _call323
+
+local _call335 = Instance.new('TextLabel')
+
+_call335.Size = UDim2.new(1, 0, 0.3, 0)
+_call335.Position = UDim2.new(0, 0, 0, 0)
+_call335.BackgroundTransparency = 1
+_call335.Text = 'Made by levi'
+_call335.Font = Enum.Font.GothamBold
+_call335.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call335.TextScaled = true
+_call335.TextStrokeTransparency = 1
+_call335.Parent = _call323
+
+local _call345 = Instance.new('TextLabel')
+
+_call345.Size = UDim2.new(1, 0, 0.3, 0)
+_call345.Position = UDim2.new(0, 0, 0.3, 0)
+_call345.BackgroundTransparency = 1
+_call345.Text = 'https://discord.gg/RsxcaHhRqb'
+_call345.Font = Enum.Font.GothamBold
+_call345.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call345.TextScaled = true
+_call345.TextStrokeTransparency = 1
+_call345.Parent = _call323
+
+local _call355 = Instance.new('TextButton')
+
+_call355.Size = UDim2.new(1, 0, 0.4, 0)
+_call355.Position = UDim2.new(0, 0, 0.6, 0)
+_call355.BackgroundTransparency = 1
+_call355.Text = 'Click me to copy'
+_call355.Font = Enum.Font.GothamBold
+_call355.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call355.TextScaled = true
+_call355.TextStrokeTransparency = 1
+_call355.Parent = _call323
+
+_call355.MouseButton1Click:Connect(function(...) end)
+
+local _call377 = _call5:Create(_call323, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+    Position = UDim2.new(1, -200, 0.1, 0),
+})
+
+_call377:Play()
+task.delay(4, function(...) end)
+
+local _call384 = Instance.new('TextLabel')
+
+_call384.Name = 'CooldownLabel'
+_call384.Size = UDim2.new(0, 120, 0, 30)
+_call384.Position = UDim2.new(0, 10, 1, 0)
+_call384.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+_call384.BackgroundTransparency = 0.35
+_call384.TextColor3 = Color3.fromRGB(255, 255, 255)
+_call384.Text = 'Cooldown: 4'
+_call384.Font = Enum.Font.GothamBold
+_call384.TextScaled = true
+_call384.TextStrokeTransparency = 1
+_call384.Visible = false
+_call384.ZIndex = 9999
+_call384.Parent = _call14
+
+local _call396 = Instance.new('UICorner')
+
+_call396.CornerRadius = UDim.new(0, 8)
+_call396.Parent = _call384
+
+_LocalPlayer10.CharacterAdded:Connect(function(...) end)
+
+local _ = _LocalPlayer10.Character
+local _Character404 = _LocalPlayer10.Character
+local _call406 = _Character404:WaitForChild('Humanoid')
+
+_Character404:WaitForChild('HumanoidRootPart')
+
+local _ = _call406.AnimationPlayed
+
+_call406:FindFirstChildOfClass('Animator')
