@@ -1,904 +1,1154 @@
--- ts file was generated at discord.gg/25ms
+-- This file was generated at discord.gg/syncrypt
 
-local fenv = getfenv()
-local _5 = loadstring(game:HttpGet('https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua'))()
-local _call9 = _5:CreateWindow({
-    SideBarWidth = 160,
-    Author = 'SupaTech & Levi',
-    Folder = 'DexHubV6',
-    Title = 'Dex Hub v6 | Levi',
-    Transparent = true,
-    HasOutline = true,
-    Theme = 'Dark',
-    Icon = 'zap',
-    Size = UDim2.fromOffset(580, 500),
-})
+if not cloneref and not clonereference then
+end
 
-_G.LegitMode = false
-_G.LoopDashId = 633996
+local v1 = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
 
-local _call13 = game:GetService('Workspace')
+game:GetService("Players")
+game:GetService("TweenService")
 
-game:GetService('TweenService')
-game:GetService('VirtualInputManager')
+local RunService = game:GetService("RunService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local u5 = nil
+local u6 = nil
+local u7 = nil
+local n1 = 0
+local u9 = false
+local t1 = {}
+local CurrentCamera = workspace.CurrentCamera
+local t2 = {
+	Floater = false,
+	AimHead = false,
+	FrogJump = false,
+	Delay = 0.3,
+	StickDur = 0.2,
+	FrogDelay = 0.1,
+	DashPattern = false,
+}
+local t3 = {
+	Enabled = false,
+	Delay = 0.2,
+	Stick = false,
+}
+local t4 = {
+	Recording = false,
+	Playing = false,
+	TriggerId = "",
+	Buffer = {},
+	StartTime = 0,
+	LastCFrame = nil,
+}
+local t5 = {
+	Enabled = false,
+	AnimId = "rbxassetid://12296113986",
+	Boost = 64,
+	Duration = 0.74,
+	Predict = 0.22,
+}
+local t6 = {
+	Enabled = false,
+	Dist = 22.5,
+	AnimId = "rbxassetid://12273188754",
+	Delay = 1.5,
+	Cd = 0.6,
+	Last = 0,
+}
+local Heartbeat = RunService.Heartbeat
+local u18 = t4
 
-local _LocalPlayer20 = game:GetService('Players').LocalPlayer
+Heartbeat:Connect(function()
+	if u18.Recording and u7 then
+		local CFrame2 = u7.CFrame
 
-game:GetService('RunService').Stepped:Connect(function(...) end)
-_LocalPlayer20.CharacterAdded:Connect(function(...)
-    local _29_vararg1 = ...
-    local _call31 = _29_vararg1:WaitForChild('Humanoid')
+		if u18.LastCFrame then
+			local Buffer = u18.Buffer
+			local t7 = {
+				Time = tick() - u18.StartTime,
+				Offset = u18.LastCFrame:ToObjectSpace(CFrame2),
+				Velocity = u7.Velocity,
+			}
 
-    fenv.char = _29_vararg1
-    fenv.hum = _call31
-    fenv.root = _29_vararg1:WaitForChild('HumanoidRootPart')
+			table.insert(Buffer, t7)
+		end
 
-    _call31.AnimationPlayed:Connect(function(...)
-        local _37_vararg1 = ...
-        local _Character38 = _LocalPlayer20.Character
-
-        _Character38:FindFirstChildOfClass('Humanoid')
-        _Character38:FindFirstChild('HumanoidRootPart')
-
-        local _ = _37_vararg1.Animation
-
-        tostring(_37_vararg1.Animation.AnimationId)
-    end)
-    _call31:FindFirstChildOfClass('Animator').AnimationPlayed:Connect(function(...)
-        local _52_vararg1 = ...
-        local _Character53 = _LocalPlayer20.Character
-
-        _Character53:FindFirstChildOfClass('Humanoid')
-        _Character53:FindFirstChild('HumanoidRootPart')
-
-        local _ = _52_vararg1.Animation
-
-        tostring(_52_vararg1.Animation.AnimationId)
-    end)
-    _29_vararg1:WaitForChild('Humanoid').AnimationPlayed:Connect(function(...)
-        local _67_vararg1 = ...
-
-        tostring(_67_vararg1.Animation.AnimationId):match('%d+')
-    end)
+		u18.LastCFrame = CFrame2
+	end
 end)
 
-local _ = _LocalPlayer20.Character
-local _Character74 = _LocalPlayer20.Character
+local u19 = t4
+local u20 = RunService
 
-_call36:Disconnect()
-_call51:Disconnect()
+local function v21(p1)
+	if u7 then
+		local v120 = nil
+		local n2 = 500
 
-local _call80 = _Character74:WaitForChild('Humanoid')
+		for _, descendant in pairs(workspace:GetDescendants()) do
+			if descendant:IsA("Model") and descendant ~= u5 then
+				local HumanoidRootPart
 
-fenv.char = _Character74
-fenv.hum = _call80
-fenv.root = _Character74:WaitForChild('HumanoidRootPart')
+				if not p1 then
+					HumanoidRootPart = descendant:FindFirstChild("HumanoidRootPart")
+				else
+					local t8 = {}
+					local Head = descendant:FindFirstChild("Head")
+					local v127 = descendant:FindFirstChild("Torso") or descendant:FindFirstChild("UpperTorso")
+					local HumanoidRootPart2 = descendant:FindFirstChild("HumanoidRootPart")
 
-_call80.AnimationPlayed:Connect(function(...)
-    local _86_vararg1 = ...
-    local _Character87 = _LocalPlayer20.Character
+					if Head then
+						table.insert(t8, Head)
+					end
 
-    _Character87:FindFirstChildOfClass('Humanoid')
-    _Character87:FindFirstChild('HumanoidRootPart')
+					if v127 then
+						table.insert(t8, v127)
+					end
 
-    local _ = _86_vararg1.Animation
+					if HumanoidRootPart2 and #t8 == 0 then
+						table.insert(t8, HumanoidRootPart2)
+					end
 
-    tostring(_86_vararg1.Animation.AnimationId)
-end)
-_call80:FindFirstChildOfClass('Animator').AnimationPlayed:Connect(function(...)
-    local _101_vararg1 = ...
-    local _Character102 = _LocalPlayer20.Character
+					HumanoidRootPart = #t8 > 0 and t8[math.random(1, #t8)] or nil
+				end
 
-    _Character102:FindFirstChildOfClass('Humanoid')
-    _Character102:FindFirstChild('HumanoidRootPart')
+				if HumanoidRootPart and HumanoidRootPart:IsA("BasePart") then
+					local Humanoid = descendant:FindFirstChildOfClass("Humanoid")
 
-    local _ = _101_vararg1.Animation
+					if not Humanoid or Humanoid.Health > 0 then
+						local Magnitude = (u7.Position - HumanoidRootPart.Position).Magnitude
 
-    tostring(_101_vararg1.Animation.AnimationId)
-end)
-_call66:Disconnect()
-_Character74:WaitForChild('Humanoid').AnimationPlayed:Connect(function(...)
-    local _118_vararg1 = ...
+						if Magnitude < n2 then
+							v120 = HumanoidRootPart
+							n2 = Magnitude
+						end
+					end
+				end
+			end
+		end
 
-    tostring(_118_vararg1.Animation.AnimationId):match('%d+')
-end)
+		return v120
+	end
 
-local _call125 = _call9:Tab({
-    Title = 'Down Supa v3',
-    Icon = 'zap',
-})
-local _call127 = _call9:Tab({
-    Title = 'SupaLegit',
-    Icon = 'zap',
-})
-local _call129 = _call9:Tab({
-    Title = 'Instant Lethal',
-    Icon = 'crosshair',
-})
-local _call131 = _call9:Tab({
-    Title = 'Hubs',
-    Icon = 'folder',
-})
-local _call133 = _call9:Tab({
-    Title = 'k1ng Tech',
-    Icon = 'cpu',
-})
-local _call135 = _call9:Tab({
-    Title = 'twisted',
-    Icon = 'shuffle',
-})
-local _call137 = _call9:Tab({
-    Title = 'Lethal Dash',
-    Icon = 'target',
-})
-local _call139 = _call9:Tab({
-    Title = 'SLethal',
-    Icon = 'shield',
-})
-local _call141 = _call9:Tab({
-    Title = 'Kyoto',
-    Icon = 'compass',
-})
-local _call143 = _call9:Tab({
-    Title = 'Loop Dash v2',
-    Icon = 'repeat',
-})
-local _call145 = _call9:Tab({
-    Title = 'Boomy Dash',
-    Icon = 'activity',
-})
-local _call147 = _call9:Tab({
-    Title = 'lag fix',
-    Icon = 'tool',
-})
-local _call149 = _call125:Section({
-    Title = 'Main Toggles',
-})
+	return nil
+end
+local function u22()
+	if u7 then
+		local v131 = nil
+		local n3 = 1e999
 
-_call149:Toggle({
-    Value = false,
-    Title = 'Floater Mode',
-    Callback = function(...) end,
-})
-_call149:Toggle({
-    Value = false,
-    Title = 'Aim Head',
-    Callback = function(...) end,
-})
-_call149:Toggle({
-    Value = false,
-    Title = 'Frog Jump Ver',
-    Callback = function(...) end,
-})
-_call149:Toggle({
-    Value = false,
-    Title = 'Activate Down Mode',
-    Callback = function(...) end,
-})
-_call149:Toggle({
-    Value = false,
-    Title = 'Dash Pattern',
-    Callback = function(...) end,
-})
+		for _, descendant in ipairs(workspace:GetDescendants()) do
+			if descendant:IsA("Model") and descendant ~= u5 then
+				local Humanoid = descendant:FindFirstChildOfClass("Humanoid")
+				local HumanoidRootPart = descendant:FindFirstChild("HumanoidRootPart")
 
-local _call166 = _call125:Section({
-    Title = 'Parameters Configuration',
-})
+				if Humanoid and Humanoid.Health > 0 and HumanoidRootPart then
+					local Magnitude = (u7.Position - HumanoidRootPart.Position).Magnitude
 
-_call166:Input({
-    Placeholder = '0.3',
-    Title = 'Floater Delay',
-    Callback = function(...) end,
-})
-_call166:Input({
-    Placeholder = '0.2',
-    Title = 'Stick Duration',
-    Callback = function(...) end,
-})
-_call166:Input({
-    Placeholder = '0.1',
-    Title = 'Frog Jump Delay',
-    Callback = function(...) end,
-})
-_call166:Input({
-    Placeholder = '60',
-    Title = 'Character Tilt Angle',
-    Callback = function(...) end,
-})
+					if Magnitude < n3 then
+						n3 = Magnitude
+						v131 = descendant
+					end
+				end
+			end
+		end
 
-local _call180 = _call125:Section({
-    Title = 'Target Tracking Options',
-})
+		return v131
+	end
 
-_call180:Toggle({
-    Value = false,
-    Title = 'Legit Dash Mode (Under Feet)',
-    Callback = function(...) end,
-})
-_call180:Input({
-    Placeholder = '0',
-    Title = 'Legit Mode Track Delay',
-    Callback = function(...) end,
-})
-_call180:Input({
-    Placeholder = '0',
-    Title = 'Legit Mode Jump Boost',
-    Callback = function(...) end,
-})
+	return nil
+end
 
-local _call191 = _call125:Section({
-    Title = 'Camera Look Configuration',
-})
+local u23 = RunService
+local u24 = t5
+local u25 = t6
+local u26 = VirtualInputManager
+local u27 = t2
+local u28 = v1
+local u29 = v21
+local u30 = RunService
+local u31 = t4
 
-_call191:Button({
-    Title = 'See Straight',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Camera set to Straight View (60\u{b0})',
-            Title = 'Legit Engine',
-        })
-    end,
-})
-_call191:Button({
-    Title = 'See Up',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Camera set to Upward Pitch (30\u{b0})',
-            Title = 'Legit Engine',
-        })
-    end,
-})
-_call191:Button({
-    Title = 'See Down',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Camera set to Downward Pitch (90\u{b0})',
-            Title = 'Legit Engine',
-        })
-    end,
-})
-_call191:Input({
-    Placeholder = 'Enter angle number (e.g. 90)',
-    Title = 'Custom Angle (e.g., 90\u{b0} straight upwards)',
-    Callback = function(...)
-        local _209_vararg1 = ...
+local function u32(p2)
+	if u5 and u6 and u7 then
+		if p2 ~= "Frog" or u27.AimHead then
+			local v147 = u29(p2 == "AimHead" or p2 == "Frog")
 
-        _209_vararg1:gsub('[^%d%-]', '')
-        _5:Notify({
-            Duration = 3,
-            Content = 'Invalid angle format. Please enter a valid number.',
-            Title = 'Error',
-        })
-    end,
-})
+			if v147 then
+				local t9 = {
+					WS = u6.WalkSpeed,
+					JP = u6.JumpPower,
+					PS = u6.PlatformStand,
+					AR = pcall(function()
+						return u6.AutoRotate
+					end) and u6.AutoRotate or false,
+				}
 
-local _call215 = _call125:Section({
-    Title = 'Target Hit Alignment',
-})
+				u6.WalkSpeed = 0
+				u6.JumpPower = 0
+				u6.PlatformStand = true
+				u6.AutoRotate = false
+				local zero = Vector3.zero
+				local zero2 = Vector3.zero
 
-_call215:Button({
-    Title = 'Aim Head',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target Part: Head',
-            Title = 'Legit Engine',
-        })
-    end,
-})
-_call215:Button({
-    Title = 'Aim Torso',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target Part: Torso',
-            Title = 'Legit Engine',
-        })
-    end,
-})
-_call215:Button({
-    Title = 'Aim Legs',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target Part: Lower Limbs',
-            Title = 'Legit Engine',
-        })
-    end,
-})
-_call215:Button({
-    Title = 'Aim Root',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target Part: HumanoidRootPart',
-            Title = 'Legit Engine',
-        })
-    end,
-})
-_call127:Toggle({
-    Value = false,
-    Title = 'Enable SupaLegit',
-    Callback = function(...)
-        _LocalPlayer20.Character:WaitForChild('Humanoid').AnimationPlayed:Connect(function(...)
-            local _245_vararg1 = ...
-            local _ = _245_vararg1.Animation
+				u7.Velocity = zero
+				u7.RotVelocity = zero2
 
-            tostring(_245_vararg1.Animation.AnimationId):find('10503381238')
-            task.delay(0.3, function(...)
-                error('internal 583: <25ms: infinitelooperror>')
-            end)
-        end)
-    end,
-})
-_call127:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter range (5-30)',
-    Default = '18',
-    Title = 'Stick Range',
-})
-_call127:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter time (1-10)',
-    Default = '4',
-    Title = 'Cooldown Time (s)',
-})
-_call129:Toggle({
-    Value = false,
-    Title = 'Enable Instant Lethal',
-    Callback = function(...)
-        _LocalPlayer20.Character:WaitForChild('Humanoid').AnimationPlayed:Connect(function(...)
-            local _271_vararg1 = ...
-            local _ = _271_vararg1.Animation
-            local _ = _271_vararg1.Animation.AnimationId
-        end)
-    end,
-})
-_call129:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter delay (0.1-0.5)',
-    Default = '0.22',
-    Title = 'Smoothness / Delay',
-})
+				for _, descendant in pairs(u5:GetDescendants()) do
+					if
+						descendant:IsA("BodyVelocity")
+						or descendant:IsA("BodyPosition")
+						or descendant:IsA("BodyGyro")
+						or descendant:IsA("VectorForce")
+						or descendant:IsA("AlignPosition")
+						or descendant:IsA("AlignOrientation")
+						or descendant:IsA("LinearVelocity")
+						or descendant:IsA("AngularVelocity")
+					then
+						local _pcall = pcall
+						local u160 = descendant
 
-local _call279 = _call131:Section({
-    Title = 'External Script Integrations',
-})
+						pcall(function()
+							u160:Destroy()
+						end)
+					end
+				end
 
-_call279:Button({
-    Title = 'Revenant hub',
-    Callback = function(...)
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/miikicomsono/Revenant/refs/heads/main/Loader'))()
-    end,
-})
-_call279:Button({
-    Title = 'Tthanh hub',
-    Callback = function(...)
-        loadstring(game:HttpGet('https://api.jnkie.com/api/v1/luascripts/public/70b143e27108f97031e9da3d47593c7dafb87793daa560e5b6d82ed7caf4f77f/download'))()
-    end,
-})
-_call279:Button({
-    Title = 'Thanhduy hub',
-    Callback = function(...)
-        loadstring(game:HttpGet('https://gist.githubusercontent.com/ngm2807-sudo/3bb38870095ccba814f13993813410f3/raw/BaeMinhHub.lua'))()
-    end,
-})
-_call279:Button({
-    Title = 'Phantasm hub',
-    Callback = function(...)
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/ATrainz/Phantasm/refs/heads/main/Games/TSB.lua'))()
-    end,
-})
-_call279:Button({
-    Title = 'Combat gui New',
-    Callback = function(...)
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/Cyborg883/CombatGuiNew/refs/heads/main/Auto%20Block%20V12'))()
-    end,
-})
-_call279:Button({
-    Title = 'Aetana hub',
-    Callback = function(...)
-        loadstring(game:HttpGet('https://api.jnkie.com/api/v1/luascripts/public/f167909ab9c31427369cb4b56b226f2fcc6d47fe9053dc9d4a8da4b2ab760286/download'))()
-    end,
-})
+				local connection = u30.Heartbeat:Connect(function()
+					if u7 then
+						u7.Velocity = Vector3.zero
+						u7.RotVelocity = Vector3.zero
+					end
 
-local _call323 = _call133:Section({
-    Title = 'Engine Processing',
-})
+					if u6 then
+						u6.WalkSpeed = 0
+					end
+				end)
 
-_call323:Toggle({
-    Value = false,
-    Title = 'Enable k1ng Tech Engine',
-    Callback = function(...) end,
-})
-_call323:Toggle({
-    Value = false,
-    Title = 'Lock On Head',
-    Callback = function(...) end,
-})
-_call323:Toggle({
-    Value = false,
-    Title = 'Lock On Torso',
-    Callback = function(...) end,
-})
+				pcall(function()
+					if u5:FindFirstChild("Communicate") then
+						local Communicate = u5.Communicate
+						local t10 = {
+							{
+								Dash = Enum.KeyCode.W,
+								Key = Enum.KeyCode.Q,
+								Goal = "KeyPress",
+							},
+						}
+						local v273 = (function(...)
+							local t11 = { ... }
 
-local _call334 = _call133:Section({
-    Title = 'Execution Modifiers Configuration',
-})
+							t11.n = select("#", ...)
 
-_call334:Input({
-    Placeholder = '10503381238',
-    Title = 'Target Animation ID',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '0',
-    Title = 'k1ng Tech Jump Boost',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '2.9',
-    Title = 'Activation Delay Time',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '0',
-    Title = 'Dash Delay Waiting Time',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '0.5',
-    Title = 'Aim Lock Delay Time',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '10',
-    Title = 'Aim Lock Active Length',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '150',
-    Title = 'Target Detection Radius',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '40',
-    Title = 'Cooldown Wait Time',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '836',
-    Title = 'Tracking Smoothness Speed',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '46',
-    Title = 'Velocity Speed Booster',
-    Callback = function(...) end,
-})
-_call334:Input({
-    Placeholder = '60',
-    Title = 'Character Tilt Angle',
-    Callback = function(...) end,
-})
+							return t11
+						end)(unpack(t10))
 
-local _call369 = _call135:Section({
-    Title = 'Execution Status',
-})
+						Communicate:FireServer(unpack(v273, 1, v273.n))
+					end
+				end)
+				pcall(function()
+					local u278
 
-_call369:Toggle({
-    Value = false,
-    Title = 'twisted mode',
-    Callback = function(...) end,
-})
-_call369:Toggle({
-    Value = false,
-    Title = 'stick',
-    Callback = function(...) end,
-})
+					pcall(function()
+						if getnilinstances then
+							for _, v in pairs(getnilinstances()) do
+								if v.ClassName == "BodyVelocity" and v.Name == "moveme" then
+									u278 = v
 
-local _call377 = _call135:Section({
-    Title = 'Time Configurations',
-})
+									return
+								end
+							end
+						end
+					end)
 
-_call377:Input({
-    Placeholder = '0.2',
-    Title = 'twisted Delay',
-    Callback = function(...) end,
-})
-_call377:Input({
-    Placeholder = '0',
-    Title = 'Animation Detection Delay',
-    Callback = function(...) end,
-})
-_call377:Input({
-    Placeholder = '0.1',
-    Title = 'Stick Delay',
-    Callback = function(...) end,
-})
-_call377:Input({
-    Placeholder = '0.2',
-    Title = 'Stick Duration',
-    Callback = function(...) end,
-})
-_call377:Input({
-    Placeholder = '0',
-    Title = 'Jump Boost',
-    Callback = function(...) end,
-})
-_call377:Input({
-    Placeholder = '60',
-    Title = 'Character Tilt Angle',
-    Callback = function(...) end,
-})
+					if u5:FindFirstChild("Communicate") then
+						local Communicate = u5.Communicate
+						local t12 = {
+							{
+								Goal = "delete bv",
+								BV = nil,
+							},
+						}
+						local v281 = (function(...)
+							local t13 = { ... }
 
-local _call397 = _call135:Section({
-    Title = 'Target Locking Alignment',
-})
+							t13.n = select("#", ...)
 
-_call397:Button({
-    Title = 'Aim Head',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target targeted to: Head',
-            Title = 'Twisted Tech',
-        })
-    end,
-})
-_call397:Button({
-    Title = 'Aim Torso',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target targeted to: Torso',
-            Title = 'Twisted Tech',
-        })
-    end,
-})
-_call397:Button({
-    Title = 'Aim Legs',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target targeted to: Legs',
-            Title = 'Twisted Tech',
-        })
-    end,
-})
+							return t13
+						end)(unpack(t12))
 
-local _call414 = _call135:Section({
-    Title = 'Hit Vector Angles',
-})
+						Communicate:FireServer(unpack(v281, 1, v281.n))
+					end
+				end)
+				task.wait(0.2)
+				pcall(function()
+					u6:ChangeState(Enum.HumanoidStateType.Physics)
+				end)
 
-_call414:Button({
-    Title = 'Normal Hit',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Hit Mode: Default Alignment',
-            Title = 'Twisted Tech',
-        })
-    end,
-})
-_call414:Button({
-    Title = 'Under Hit',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Hit Mode: Under Hit Angle Activated',
-            Title = 'Twisted Tech',
-        })
-    end,
-})
-_call414:Button({
-    Title = 'Upper Hit',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Hit Mode: Upper Hit Angle Activated',
-            Title = 'Twisted Tech',
-        })
-    end,
-})
+				if u7 then
+					u7.CFrame = u7.CFrame * CFrame.Angles(1.0471975511965976, 0, 0)
+				end
 
-local _call431 = _call137:Section({
-    Title = 'Lethal Dash Core',
-})
+				if not u27.DashPattern or not (#u31.Buffer > 0) then
+					local StickDur = u27.StickDur
+					local timestamp = tick()
+					local Heartbeat2 = u30.Heartbeat
+					local u165 = StickDur
+					local u166 = timestamp
+					local u167 = v147
+					local connection2 = Heartbeat2:Connect(function()
+						if u165 > tick() - u166 and u7 and u167 then
+							pcall(function()
+								u7.CFrame = CFrame.new(u167.Position - u167.CFrame.LookVector * 0.3) * CFrame.Angles(1.0471975511965976, 0, 0)
+							end)
+						end
+					end)
 
-_call431:Toggle({
-    Value = false,
-    Title = 'Lethal Dash',
-    Callback = function(...) end,
-})
-_call431:Input({
-    Placeholder = '12296113986',
-    Title = 'Target Animation ID',
-    Callback = function(...) end,
-})
-_call431:Input({
-    Placeholder = '64',
-    Title = 'Jump Height',
-    Callback = function(...) end,
-})
-_call431:Input({
-    Placeholder = '0.74',
-    Title = 'Aim Duration',
-    Callback = function(...) end,
-})
-_call431:Input({
-    Placeholder = '0.22',
-    Title = 'Prediction Multiplier',
-    Callback = function(...) end,
-})
-_call431:Input({
-    Placeholder = '60',
-    Title = 'Character Tilt Angle',
-    Callback = function(...) end,
-})
+					task.wait(StickDur)
+					connection2:Disconnect()
+				else
+					local timestamp = tick()
+					local n4 = 1
+					local connection3 = nil
+					local Heartbeat3 = u30.Heartbeat
+					local u173 = timestamp
 
-local _call451 = _call139:Section({
-    Title = 'SLethal Configuration',
-})
+					connection3 = Heartbeat3:Connect(function()
+						local v286 = tick() - u173
 
-_call451:Toggle({
-    Value = false,
-    Title = 'Enable SLethal',
-    Callback = function(...) end,
-})
-_call451:Input({
-    Placeholder = '0',
-    Title = 'SLethal Delay',
-    Callback = function(...) end,
-})
-_call451:Input({
-    Placeholder = '60',
-    Title = 'Character Tilt',
-    Callback = function(...) end,
-})
-_call451:Input({
-    Placeholder = '0',
-    Title = 'Jump Boost',
-    Callback = function(...) end,
-})
+						while n4 <= #u31.Buffer and v286 >= u31.Buffer[n4].Time do
+							if u7 then
+								u7.CFrame = u7.CFrame * u31.Buffer[n4].Offset
+								u7.Velocity = u31.Buffer[n4].Velocity
+							end
 
-local _call465 = _call139:Section({
-    Title = 'Target Hit Alignment',
-})
+							n4 = n4 + 1
+						end
 
-_call465:Button({
-    Title = 'Aim Head',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target Part: Head',
-            Title = 'SLethal Engine',
-        })
-    end,
-})
-_call465:Button({
-    Title = 'Aim Torso',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target Part: Torso',
-            Title = 'SLethal Engine',
-        })
-    end,
-})
-_call465:Button({
-    Title = 'Aim Legs',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target Part: Legs',
-            Title = 'SLethal Engine',
-        })
-    end,
-})
-_call465:Button({
-    Title = 'Aim Root',
-    Callback = function(...)
-        _5:Notify({
-            Duration = 2,
-            Content = 'Target Part: HumanoidRootPart',
-            Title = 'SLethal Engine',
-        })
-    end,
-})
+						if n4 > #u31.Buffer or not u9 then
+							connection3:Disconnect()
+						end
+					end)
 
-local _call487 = _call141:Section({
-    Title = 'Kyoto Delay Settings',
-})
+					local timestamp2 = tick()
 
-_call487:Toggle({
-    Value = false,
-    Title = 'Delay',
-    Callback = function(...) end,
-})
-_call487:Input({
-    Placeholder = '12273188754',
-    Title = 'Animation ID',
-    Callback = function(...) end,
-})
-_call487:Input({
-    Placeholder = '22.5',
-    Title = 'Distance',
-    Callback = function(...) end,
-})
-_call487:Input({
-    Placeholder = '1.5',
-    Title = 'Activation Delay',
-    Callback = function(...) end,
-})
-_call487:Input({
-    Placeholder = '0.6',
-    Title = 'Cooldown',
-    Callback = function(...) end,
-})
-_call487:Input({
-    Placeholder = '60',
-    Title = 'Character Tilt Angle',
-    Callback = function(...) end,
-})
+					while u27.StickDur > tick() - timestamp2 and u9 do
+						task.wait()
+					end
 
-local _call507 = _call143:Section({
-    Title = 'Loop Core Settings',
-})
+					connection3:Disconnect()
+				end
 
-_call507:Toggle({
-    Value = false,
-    Title = 'Enable Loop Dash Loop',
-    Callback = function(...) end,
-})
-_call507:Toggle({
-    Value = false,
-    Title = 'Activate Down Mode',
-    Callback = function(...) end,
-})
-_call507:Toggle({
-    Value = true,
-    Title = 'NoClip During Dash',
-    Callback = function(...) end,
-})
-_call507:Toggle({
-    Value = true,
-    Title = 'Auto Cancel Enabled',
-    Callback = function(...) end,
-})
-_call507:Toggle({
-    Value = true,
-    Title = 'Cooldown Active',
-    Callback = function(...) end,
-})
-_call143:Dropdown({
-    Callback = function(...) end,
-    Default = 'BodyGyro',
-    Values = {
-        [1] = 'BodyGyro',
-        [2] = 'AlignOrientation',
-        [3] = 'Standard',
-    },
-    Title = 'Rotation Mode',
-})
-_call143:Dropdown({
-    Callback = function(...) end,
-    Default = 'Normal',
-    Values = {
-        [1] = 'Normal',
-        [2] = 'Delayed',
-    },
-    Title = 'Jump Mode',
-})
-_call507:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter range (4-20)',
-    Default = '8',
-    Title = 'Dash Range',
-})
-_call507:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter delay',
-    Default = '0.28',
-    Title = 'Loop Dash Delay',
-})
-_call507:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter power',
-    Default = '55',
-    Title = 'Loop Dash Jump Power',
-})
-_call507:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter accuracy',
-    Default = '15',
-    Title = 'Loop Dash Accuracy',
-})
-_call507:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter cancel delay',
-    Default = '0.4',
-    Title = 'Cancel Delay',
-})
-_call507:Input({
-    Callback = function(...) end,
-    Placeholder = 'Enter duration',
-    Default = '1.5',
-    Title = 'Total Dash Duration',
-})
+				connection:Disconnect()
 
-local _call548 = _call145:Section({
-    Title = 'Boomy Core Settings',
-})
+				if p2 == "Frog" and u27.AimHead then
+					task.wait(u27.FrogDelay)
 
-_call548:Toggle({
-    Value = false,
-    Title = 'Enable Boomy Dash Loop',
-    Callback = function(...) end,
-})
-_call548:Toggle({
-    Value = false,
-    Title = 'Activate Down Mode',
-    Callback = function(...) end,
-})
-_call548:Input({
-    Placeholder = '14',
-    Title = 'Start Sequence Delay',
-    Callback = function(...) end,
-})
-_call548:Input({
-    Placeholder = '3',
-    Title = 'Loop Delay Timer',
-    Callback = function(...) end,
-})
-_call548:Input({
-    Placeholder = '1',
-    Title = 'First Turn Dash Delay',
-    Callback = function(...) end,
-})
-_call548:Input({
-    Placeholder = '1000',
-    Title = 'Aim Lock Accuracy Strength',
-    Callback = function(...) end,
-})
-_call548:Input({
-    Placeholder = '62',
-    Title = 'Jump Height Power (Boomy)',
-    Callback = function(...) end,
-})
-_call548:Input({
-    Placeholder = '60',
-    Title = 'Character Tilt Angle',
-    Callback = function(...) end,
-})
+					if v147 and v147.Parent then
+						local v175 = v147.Parent:FindFirstChild("Head") or (v147 or false)
+						local v176 = v147.Parent:FindFirstChild("HumanoidRootPart") or (v175 or false)
 
-local _call574 = _call147:Section({
-    Title = 'Optimization Tools',
-})
+						if v176 and u7 then
+							local _pcall = pcall
+							local u178 = v176
 
-_call574:Button({
-    Title = 'Run Clean Lag Optimization',
-    Callback = function(...)
-        local _ = _LocalPlayer20.Character
+							pcall(function()
+								u7.CFrame = CFrame.new(u178.Position + Vector3.new(0, 3, 0)) * CFrame.Angles(1.0471975511965976, 0, 0)
+							end)
+							task.wait(0.1)
+						end
+					end
+				end
 
-        for _582, _582_2 in pairs(_call13:GetDescendants())do
-            local _ = _582_2 == _call13.Terrain
-            local _ = _582_2 == _call13.CurrentCamera
+				pcall(function()
+					u6:ChangeState(Enum.HumanoidStateType.GettingUp)
+				end)
 
-            _582_2:IsA('Camera')
-        end
-    end,
+				local _pcall = pcall
+				local u180 = t9
+
+				pcall(function()
+					local WS = u180.WS
+					local JP = u180.JP
+					local PS = u180.PS
+					local AR = u180.AR
+
+					u6.WalkSpeed = WS
+					u6.JumpPower = JP
+					u6.PlatformStand = PS
+					u6.AutoRotate = AR
+					local zero3 = Vector3.zero
+					local zero4 = Vector3.zero
+
+					u7.Velocity = zero3
+					u7.RotVelocity = zero4
+				end)
+
+				return
+			end
+
+			return
+		end
+
+		u28:Notify({
+			Title = "Error",
+			Content = "Please turn on Aim Head mode to make it happen",
+			Duration = 3,
+		})
+
+		return
+	end
+end
+
+local u33 = t3
+local u34 = VirtualInputManager
+local u35 = v21
+local u36 = RunService
+local u37 = CurrentCamera
+local u38 = t6
+
+local function u39()
+	if not (os.clock() - u25.Last < u25.Cd) then
+		u25.Last = os.clock()
+
+		if u7 then
+			u7.CFrame = u7.CFrame + u7.CFrame.LookVector * u25.Dist
+			pcall(function()
+				u26:SendKeyEvent(true, Enum.KeyCode.Two, false, game)
+				task.wait(0.05)
+				u26:SendKeyEvent(false, Enum.KeyCode.Two, false, game)
+			end)
+		end
+
+		return
+	end
+end
+
+local u40 = t5
+
+local function u41()
+	if u6 and u7 then
+		u6.AutoRotate = false
+
+		local connection = u6:GetPropertyChangedSignal("AutoRotate"):Connect(function()
+			u6.AutoRotate = false
+		end)
+		local v139 = u22()
+
+		if v139 then
+			local timestamp = tick()
+			local connection4 = nil
+			local RenderStepped = u23.RenderStepped
+			local u143 = connection
+			local u144 = timestamp
+			local u145 = v139
+
+			connection4 = RenderStepped:Connect(function()
+				if u24.Enabled then
+					if not (tick() - u144 <= u24.Duration) then
+						connection4:Disconnect()
+						u143:Disconnect()
+						u6.AutoRotate = true
+					else
+						local HumanoidRootPart = u145:FindFirstChild("HumanoidRootPart")
+
+						if HumanoidRootPart then
+							local v270 = HumanoidRootPart.Position + HumanoidRootPart.AssemblyLinearVelocity * u24.Predict
+
+							u7.CFrame = CFrame.lookAt(u7.Position, Vector3.new(v270.X, u7.Position.Y, v270.Z))
+
+							return
+						end
+					end
+
+					return
+				end
+
+				connection4:Disconnect()
+				u143:Disconnect()
+				u6.AutoRotate = true
+			end)
+
+			return
+		end
+
+		u6.AutoRotate = true
+		connection:Disconnect()
+
+		return
+	end
+end
+
+local u42 = t4
+local u43 = t2
+
+local function u44()
+	if #u19.Buffer ~= 0 and not u19.Playing and u7 then
+		u19.Playing = true
+
+		local timestamp = tick()
+		local n5 = 1
+		local connection = nil
+		local t14 = {
+			WS = u6.WalkSpeed,
+			JP = u6.JumpPower,
+			PS = u6.PlatformStand,
+		}
+
+		u6.WalkSpeed = 0
+		u6.JumpPower = 0
+		u6.PlatformStand = true
+
+		local Heartbeat4 = u20.Heartbeat
+		local u117 = timestamp
+		local u118 = t14
+
+		connection = Heartbeat4:Connect(function()
+			local v262 = tick() - u117
+
+			while n5 <= #u19.Buffer and v262 >= u19.Buffer[n5].Time do
+				if u7 then
+					u7.CFrame = u7.CFrame * u19.Buffer[n5].Offset
+					u7.Velocity = u19.Buffer[n5].Velocity
+				end
+
+				n5 = n5 + 1
+			end
+
+			if n5 > #u19.Buffer then
+				connection:Disconnect()
+				local WS = u118.WS
+				local JP = u118.JP
+				local PS = u118.PS
+
+				u6.WalkSpeed = WS
+				u6.JumpPower = JP
+				u6.PlatformStand = PS
+				u19.Playing = false
+			end
+		end)
+
+		return
+	end
+end
+local function u45(p3)
+	if not u9 and not (tick() - n1 < 0.3) then
+		n1 = tick()
+		u9 = true
+
+		local spawn = task.spawn
+		local u183 = p3
+
+		spawn(function()
+			u32(u183)
+		end)
+		task.delay(0.3, function()
+			u9 = false
+		end)
+
+		return
+	end
+end
+
+local u46 = t3
+
+local function u47()
+	task.wait(u33.Delay)
+	u34:SendKeyEvent(true, Enum.KeyCode.Q, false, game)
+	task.wait(0.5)
+	u34:SendKeyEvent(false, Enum.KeyCode.Q, false, game)
+	task.wait(1.7)
+
+	if u33.Stick then
+		local v184 = u35(false)
+
+		if v184 and u7 then
+			local timestamp = tick()
+			local connection = nil
+			local Heartbeat5 = u36.Heartbeat
+			local u188 = timestamp
+			local u189 = v184
+
+			connection = Heartbeat5:Connect(function()
+				if not (tick() - u188 > 0.2) and u7 and u189 then
+					pcall(function()
+						local Unit = Vector3.new(u189.Position.X - u7.Position.X, 0, u189.Position.Z - u7.Position.Z).Unit
+
+						u7.CFrame = CFrame.new(u189.Position - u189.CFrame.LookVector * 0.3, u189.Position) * CFrame.Angles(-1.5707963267948966, 0, 0)
+						u37.CFrame = CFrame.new(u37.CFrame.Position, u37.CFrame.Position + Unit)
+					end)
+
+					return
+				end
+
+				connection:Disconnect()
+			end)
+		end
+
+		return
+	end
+end
+
+local u48 = LocalPlayer
+local u49 = CurrentCamera
+
+local function u50()
+	pcall(function()
+		if u48.Character and u48.Character:FindFirstChild("HumanoidRootPart") then
+			local HumanoidRootPart = u48.Character.HumanoidRootPart
+			local Part = Instance.new("Part")
+			local vector3 = Vector3.new(9000, 1, 9000)
+			local v303 = HumanoidRootPart.Position - Vector3.new(0, 3.5, 0)
+			local SmoothPlastic = Enum.Material.SmoothPlastic
+
+			Part.Name = "DexHubSafetyFloor"
+			Part.Size = vector3
+			Part.Position = v303
+			Part.Anchored = true
+			Part.Transparency = 1
+			Part.Material = SmoothPlastic
+			Part.Parent = workspace
+		end
+	end)
+
+	for _, descendant in pairs(workspace:GetDescendants()) do
+		if descendant ~= workspace.Terrain and descendant ~= u49 and not descendant:IsA("Camera") then
+			local v202 = false
+			local v203 = descendant
+
+			while v203 and v203 ~= workspace do
+				if v203:IsA("Model") and v203:FindFirstChildOfClass("Humanoid") and v203:FindFirstChild("HumanoidRootPart") then
+					v202 = true
+
+					break
+				end
+
+				v203 = v203.Parent
+			end
+
+			if not v202 and descendant.Name ~= "DexHubSafetyFloor" then
+				if not descendant:IsA("BasePart") and not descendant:IsA("MeshPart") then
+					if not descendant:IsA("Model") and not descendant:IsA("Folder") and not descendant:IsA("Workspace") then
+						local _pcall = pcall
+						local u205 = descendant
+
+						pcall(function()
+							u205:Destroy()
+						end)
+					end
+				else
+					local v206 = string.lower(descendant.Name)
+					local descendantSize = descendant.Size
+
+					if
+						not string.find(v206, "floor")
+						and not string.find(v206, "ground")
+						and ((not (descendantSize.Y < descendantSize.X) or not (descendantSize.Y < descendantSize.Z)) and not string.find(v206, "wall"))
+						and (not (descendantSize.Y >= 35) or not (descendantSize.Y <= 65))
+					then
+						local _pcall = pcall
+						local u209 = descendant
+
+						pcall(function()
+							u209:Destroy()
+						end)
+					end
+				end
+			end
+		end
+	end
+end
+local function u51(p4)
+	if p4 and p4.Animation then
+		local v191 = p4.Animation.AnimationId or ""
+		local str = tostring(v191)
+
+		if u38.Enabled and string.find(str, u38.AnimId, 1, true) then
+			task.delay(u38.Delay, function()
+				if u38.Enabled then
+					u39()
+				end
+			end)
+		end
+
+		if u40.Enabled and string.find(str, u40.AnimId, 1, true) then
+			task.wait(1.7)
+
+			if u7 then
+				u7.AssemblyLinearVelocity = Vector3.new(0, u40.Boost, 0)
+			end
+
+			u41()
+
+			local v193 = u5 and u5:FindFirstChild("Communicate")
+
+			if v193 then
+				local t15 = {
+					{
+						Dash = Enum.KeyCode.W,
+						Key = Enum.KeyCode.Q,
+						Goal = "KeyPress",
+					},
+				}
+				local v195 = (function(...)
+					local t16 = { ... }
+
+					t16.n = select("#", ...)
+
+					return t16
+				end)(unpack(t15))
+
+				v193:FireServer(unpack(v195, 1, v195.n))
+			end
+		end
+
+		if u42.TriggerId ~= "" and string.find(str, u42.TriggerId, 1, true) and not u43.DashPattern then
+			task.spawn(u44)
+		end
+
+		if (u43.Floater or u43.AimHead) and (string.find(str, "10503381238", 1, true) or string.find(str, "13379003796", 1, true)) then
+			task.delay(u43.Delay, function()
+				if not u43.FrogJump then
+					if not u43.AimHead then
+						if u43.Floater then
+							u45("Floater")
+						end
+
+						return
+					end
+
+					u45("AimHead")
+
+					return
+				end
+
+				u45("Frog")
+			end)
+		end
+
+		if u46.Enabled and string.find(str, "13294471966", 1, true) then
+			task.spawn(u47)
+		end
+	end
+end
+local function v52(p5)
+	for _, v in pairs(t1) do
+		local _pcall = pcall
+		local u214 = v
+
+		pcall(function()
+			u214:Disconnect()
+		end)
+	end
+
+	t1 = {}
+
+	local Humanoid = p5:WaitForChild("Humanoid")
+	local HumanoidRootPart = p5:WaitForChild("HumanoidRootPart")
+
+	u5 = p5
+	u6 = Humanoid
+	u7 = HumanoidRootPart
+
+	local ok, result = pcall(function()
+		return u6.AnimationPlayed:Connect(u51)
+	end)
+
+	if ok and result then
+		table.insert(t1, result)
+	end
+
+	local Animator = u6:FindFirstChildOfClass("Animator")
+
+	if Animator then
+		local _pcall = pcall
+		local u222 = Animator
+		local v223, v224 = pcall(function()
+			return u222.AnimationPlayed:Connect(u51)
+		end)
+
+		if v223 and v224 then
+			table.insert(t1, v224)
+		end
+	end
+end
+
+LocalPlayer.CharacterAdded:Connect(v52)
+
+if LocalPlayer.Character then
+	v52(LocalPlayer.Character)
+end
+
+task.spawn(u50)
+
+local v53 = v1:CreateWindow({
+	Title = "Dex Hub v2",
+	Folder = "dexhub",
+	NewElements = true,
 })
-_call574:Button({
-    Title = 'Remove Visual Particles/Trails',
-    Callback = function(...) end,
+local v54 = v53:Section({
+	Title = "Down Supa v3",
+}):Tab({
+	Title = "Down Supa v3",
+	Border = true,
 })
-_call9:SelectTab(1)
-_5:Notify({
-    Duration = 3,
-    Content = 'All combat scripts and loops successfully combined!',
-    Title = 'Dex Hub v6 | Levi Loaded',
+local v55 = v53:Section({
+	Title = "twisted",
+}):Tab({
+	Title = "twisted",
+	Border = true,
+})
+local v56 = v53:Section({
+	Title = "Movement Mimic",
+}):Tab({
+	Title = "Mimic",
+	Border = true,
+})
+local v57 = v53:Section({
+	Title = "Instant Lethal",
+}):Tab({
+	Title = "Lethal Dash",
+	Border = true,
+})
+local v58 = v53:Section({
+	Title = "Kyoto",
+}):Tab({
+	Title = "Kyoto",
+	Border = true,
+})
+local v59 = v53:Section({
+	Title = "lag fix",
+}):Tab({
+	Title = "lag fix",
+	Border = true,
+})
+local t17 = {
+	Title = "Floater Mode",
+	Value = false,
+}
+local u61 = t2
+
+function t17.Callback(p6)
+	u61.Floater = p6
+end
+
+v54:Toggle(t17)
+
+local t18 = {
+	Title = "Aim Head",
+	Value = false,
+}
+local u63 = t2
+
+function t18.Callback(p7)
+	u63.AimHead = p7
+end
+
+v54:Toggle(t18)
+
+local t19 = {
+	Title = "Frog Jump Ver",
+	Value = false,
+}
+local u65 = t2
+local u66 = v1
+
+function t19.Callback(p8)
+	if p8 and not u65.AimHead then
+		u66:Notify({
+			Title = "Error",
+			Content = "Please turn on Aim Head mode to make it happen",
+			Duration = 3,
+		})
+	end
+
+	u65.FrogJump = p8
+end
+
+v54:Toggle(t19)
+
+local t20 = {
+	Title = "Dash Pattern",
+	Value = false,
+}
+local u68 = t2
+
+function t20.Callback(p9)
+	u68.DashPattern = p9
+end
+
+v54:Toggle(t20)
+
+local t21 = {
+	Title = "Floater Delay",
+	Placeholder = "0.3",
+}
+local u70 = t2
+
+function t21.Callback(p10)
+	local num = tonumber(p10)
+
+	u70.Delay = num and num or 0.3
+end
+
+v54:Input(t21)
+
+local t22 = {
+	Title = "Stick Duration",
+	Placeholder = "0.2",
+}
+local u72 = t2
+
+function t22.Callback(p11)
+	local num = tonumber(p11)
+
+	u72.StickDur = num and num or 0.2
+end
+
+v54:Input(t22)
+
+local t23 = {
+	Title = "Frog Jump Delay",
+	Placeholder = "0.1",
+}
+local u74 = t2
+
+function t23.Callback(p12)
+	local num = tonumber(p12)
+
+	u74.FrogDelay = num and num or 0.1
+end
+
+v54:Input(t23)
+
+local t24 = {
+	Title = "twisted mode",
+	Value = false,
+}
+local u76 = t3
+
+function t24.Callback(p13)
+	u76.Enabled = p13
+end
+
+v55:Toggle(t24)
+
+local t25 = {
+	Title = "twisted Delay",
+	Placeholder = "0.2",
+}
+local u78 = t3
+
+function t25.Callback(p14)
+	local num = tonumber(p14)
+
+	u78.Delay = num and num or 0.2
+end
+
+v55:Input(t25)
+
+local t26 = {
+	Title = "stick",
+	Value = false,
+}
+local u80 = t3
+
+function t26.Callback(p15)
+	u80.Stick = p15
+end
+
+v55:Toggle(t26)
+
+local t27 = {
+	Title = "Record Movement",
+	Value = false,
+}
+local u82 = t4
+
+function t27.Callback(p16)
+	u82.Recording = p16
+
+	if p16 then
+		u82.Buffer = {}
+		u82.StartTime = tick()
+		u82.LastCFrame = u7 and u7.CFrame or nil
+	end
+end
+
+v56:Toggle(t27)
+
+local t28 = {
+	Title = "Trigger Animation ID",
+	Placeholder = "e.g. 12345678",
+}
+local u84 = t4
+
+function t28.Callback(p17)
+	u84.TriggerId = p17
+end
+
+v56:Input(t28)
+
+local t29 = {
+	Title = "Lethal Dash",
+	Value = false,
+}
+local u86 = t5
+
+function t29.Callback(p18)
+	u86.Enabled = p18
+end
+
+v57:Toggle(t29)
+
+local t30 = {
+	Title = "Target Animation ID",
+	Placeholder = "12296113986",
+}
+local u88 = t5
+
+function t30.Callback(p19)
+	if p19 ~= "" then
+		u88.AnimId = p19
+	end
+end
+
+v57:Input(t30)
+
+local t31 = {
+	Title = "Jump Height",
+	Placeholder = "64",
+}
+local u90 = t5
+
+function t31.Callback(p20)
+	local num = tonumber(p20)
+
+	u90.Boost = num and num or 64
+end
+
+v57:Input(t31)
+
+local t32 = {
+	Title = "Aim Duration",
+	Placeholder = "0.74",
+}
+local u92 = t5
+
+function t32.Callback(p21)
+	local num = tonumber(p21)
+
+	u92.Duration = num and num or 0.74
+end
+
+v57:Input(t32)
+
+local t33 = {
+	Title = "Prediction Multiplier",
+	Placeholder = "0.22",
+}
+local u94 = t5
+
+function t33.Callback(p22)
+	local num = tonumber(p22)
+
+	u94.Predict = num and num or 0.22
+end
+
+v57:Input(t33)
+
+local t34 = {
+	Title = "Delay",
+	Value = false,
+}
+local u96 = t6
+
+function t34.Callback(p23)
+	u96.Enabled = p23
+end
+
+v58:Toggle(t34)
+
+local t35 = {
+	Title = "Animation ID",
+	Placeholder = "12273188754",
+}
+local u98 = t6
+
+function t35.Callback(p24)
+	if p24 ~= "" then
+		u98.AnimId = p24
+	end
+end
+
+v58:Input(t35)
+
+local t36 = {
+	Title = "Distance",
+	Placeholder = "22.5",
+}
+local u100 = t6
+
+function t36.Callback(p25)
+	local num = tonumber(p25)
+
+	u100.Dist = num and num or 22.5
+end
+
+v58:Input(t36)
+
+local t37 = {
+	Title = "Activation Delay",
+	Placeholder = "1.5",
+}
+local u102 = t6
+
+function t37.Callback(p26)
+	local num = tonumber(p26)
+
+	u102.Delay = num and num or 1.5
+end
+
+v58:Input(t37)
+
+local t38 = {
+	Title = "Cooldown",
+	Placeholder = "0.6",
+}
+local u104 = t6
+
+function t38.Callback(p27)
+	local num = tonumber(p27)
+
+	u104.Cd = num and num or 0.6
+end
+
+v58:Input(t38)
+v59:Button({
+	Title = "lag fix",
+	Callback = function()
+		u50()
+	end,
+})
+v59:Button({
+	Title = "remove vfx",
+	Callback = function()
+		for _, descendant in pairs(workspace:GetDescendants()) do
+			if
+				descendant:IsA("ParticleEmitter")
+				or descendant:IsA("Trail")
+				or descendant:IsA("Beam")
+				or descendant:IsA("Sparkles")
+				or descendant:IsA("Smoke")
+				or descendant:IsA("Fire")
+			then
+				local _pcall = pcall
+				local u261 = descendant
+
+				pcall(function()
+					u261:Destroy()
+				end)
+			end
+		end
+	end,
 })
