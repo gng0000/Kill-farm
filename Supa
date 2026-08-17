@@ -1,424 +1,904 @@
 -- ts file was generated at discord.gg/25ms
 
-local _call5 = game:GetService('TweenService')
-local _call7 = game:GetService('UserInputService')
-
-game:GetService('RunService')
-
-local _LocalPlayer10 = game:GetService('Players').LocalPlayer
-local _call14 = Instance.new('ScreenGui')
-
-_call14.Name = 'Merebennie_StickDashGui'
-_call14.ResetOnSpawn = false
-_call14.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-_call14.IgnoreGuiInset = true
-_call14.DisplayOrder = 9999
-_call14.Parent = _LocalPlayer10:FindFirstChild('PlayerGui')
-
-local _call18 = Instance.new('TextButton')
-
-_call18.Name = 'StickDashToggle'
-_call18.Size = UDim2.new(0, 140, 0, 25)
-_call18.Position = UDim2.new(0.4, 0, 0.8, 0)
-_call18.Text = 'Lvs Tech: On'
-_call18.Font = Enum.Font.GothamBold
-_call18.TextScaled = true
-_call18.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-_call18.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call18.TextStrokeTransparency = 1
-_call18.AutoButtonColor = false
-_call18.ZIndex = 9999
-_call18.Parent = _call14
-
-local _call30 = Instance.new('UICorner')
-
-_call30.CornerRadius = UDim.new(0, 8)
-_call30.Parent = _call18
-
-local _call34 = Instance.new('Sound')
-
-_call34.Name = 'ButtonClickSound'
-_call34.SoundId = 'rbxassetid://6042053626'
-_call34.Volume = 1
-_call34.Looped = false
-_call34.Parent = _call18
-
-_call18.MouseButton1Click:Connect(function(...)
-    _call34:Play()
-    _call18:TweenSize(UDim2.new(0, 136, 0, 23), 'Out', 'Quad', 0.05, true)
-    task.wait(0.05)
-    _call18:TweenSize(UDim2.new(0, 140, 0, 25), 'Out', 'Quad', 0.05, true)
-end)
-_call18.InputBegan:Connect(function(...)
-    local _52_vararg1 = ...
-    local _ = _52_vararg1.UserInputType == Enum.UserInputType.MouseButton1
-    local _ = _52_vararg1.UserInputType == Enum.UserInputType.Touch
-end)
-_call18.InputChanged:Connect(function(...)
-    local _64_vararg1 = ...
-    local _ = _64_vararg1.UserInputType == Enum.UserInputType.MouseMovement
-    local _ = _64_vararg1.UserInputType == Enum.UserInputType.Touch
-end)
-_call7.InputChanged:Connect(function(...) end)
-_call18.MouseButton1Click:Connect(function(...)
-    _call18.Text = 'Lvs Tech: Off'
-    _call18.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    _call18.TextColor3 = Color3.fromRGB(255, 255, 255)
-end)
-
-local _call86 = Instance.new('Frame')
-
-_call86.Name = 'SettingsFrame'
-_call86.Size = UDim2.new(0, 250, 0, 290)
-_call86.Position = UDim2.new(0.4, 0, 0.4, 0)
-_call86.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-_call86.BorderSizePixel = 0
-_call86.ZIndex = 10000
-_call86.Parent = _call14
-
-local _call94 = Instance.new('UICorner')
-
-_call94.CornerRadius = UDim.new(0, 8)
-_call94.Parent = _call86
-
-local _call98 = Instance.new('TextLabel')
-
-_call98.Size = UDim2.new(1, -40, 0, 35)
-_call98.Position = UDim2.new(0, 10, 0, 0)
-_call98.BackgroundTransparency = 1
-_call98.Text = 'Lvs Tech Settings'
-_call98.Font = Enum.Font.GothamBold
-_call98.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call98.TextSize = 14
-_call98.TextXAlignment = Enum.TextXAlignment.Left
-_call98.ZIndex = 10001
-_call98.Parent = _call86
-
-local _call110 = Instance.new('TextButton')
-
-_call110.Size = UDim2.new(0, 25, 0, 25)
-_call110.Position = UDim2.new(1, -30, 0, 5)
-_call110.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-_call110.Text = '-'
-_call110.Font = Enum.Font.GothamBold
-_call110.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call110.TextSize = 14
-_call110.ZIndex = 10001
-_call110.Parent = _call86
-
-local _call122 = Instance.new('UICorner')
-
-_call122.CornerRadius = UDim.new(0, 6)
-_call122.Parent = _call110
-
-local _call126 = Instance.new('UIListLayout')
-
-_call126.SortOrder = Enum.SortOrder.LayoutOrder
-_call126.Padding = UDim.new(0, 6)
-_call126.Parent = _call86
-_call98.LayoutOrder = 1
-_call110.LayoutOrder = 1
-
-local _call132 = Instance.new('Frame')
-
-_call132.Size = UDim2.new(1, -20, 0, 40)
-_call132.BackgroundTransparency = 1
-_call132.ZIndex = 10000
-_call132.Parent = _call86
-
-local _call136 = Instance.new('TextLabel')
-
-_call136.Size = UDim2.new(0.55, 0, 1, 0)
-_call136.BackgroundTransparency = 1
-_call136.Text = 'Teleport Dist:'
-_call136.Font = Enum.Font.Gotham
-_call136.TextColor3 = Color3.fromRGB(200, 200, 200)
-_call136.TextSize = 12
-_call136.TextXAlignment = Enum.TextXAlignment.Left
-_call136.ZIndex = 10001
-_call136.Parent = _call132
-
-local _call146 = Instance.new('TextBox')
-
-_call146.Size = UDim2.new(0.42, 0, 0.8, 0)
-_call146.Position = UDim2.new(0.58, 0, 0.1, 0)
-_call146.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-_call146.Text = '10'
-_call146.Font = Enum.Font.GothamBold
-_call146.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call146.TextSize = 12
-_call146.ZIndex = 10001
-_call146.Parent = _call132
-
-local _call158 = Instance.new('UICorner')
-
-_call158.CornerRadius = UDim.new(0, 6)
-_call158.Parent = _call146
-
-_call146.FocusLost:Connect(function(...)
-    local _ = _call146.Text
-
-    _call146.Text = '10'
-end)
-
-local _call167 = Instance.new('Frame')
-
-_call167.Size = UDim2.new(1, -20, 0, 40)
-_call167.BackgroundTransparency = 1
-_call167.ZIndex = 10000
-_call167.Parent = _call86
-
-local _call171 = Instance.new('TextLabel')
-
-_call171.Size = UDim2.new(0.55, 0, 1, 0)
-_call171.BackgroundTransparency = 1
-_call171.Text = 'Stick Duration:'
-_call171.Font = Enum.Font.Gotham
-_call171.TextColor3 = Color3.fromRGB(200, 200, 200)
-_call171.TextSize = 12
-_call171.TextXAlignment = Enum.TextXAlignment.Left
-_call171.ZIndex = 10001
-_call171.Parent = _call167
-
-local _call181 = Instance.new('TextBox')
-
-_call181.Size = UDim2.new(0.42, 0, 0.8, 0)
-_call181.Position = UDim2.new(0.58, 0, 0.1, 0)
-_call181.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-_call181.Text = '0'
-_call181.Font = Enum.Font.GothamBold
-_call181.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call181.TextSize = 12
-_call181.ZIndex = 10001
-_call181.Parent = _call167
-
-local _call193 = Instance.new('UICorner')
-
-_call193.CornerRadius = UDim.new(0, 6)
-_call193.Parent = _call181
-
-_call181.FocusLost:Connect(function(...)
-    local _ = _call181.Text
-
-    _call181.Text = '0'
-end)
-
-local _call202 = Instance.new('Frame')
-
-_call202.Size = UDim2.new(1, -20, 0, 40)
-_call202.BackgroundTransparency = 1
-_call202.ZIndex = 10000
-_call202.Parent = _call86
-
-local _call206 = Instance.new('TextLabel')
-
-_call206.Size = UDim2.new(0.55, 0, 1, 0)
-_call206.BackgroundTransparency = 1
-_call206.Text = 'Camlock Dur:'
-_call206.Font = Enum.Font.Gotham
-_call206.TextColor3 = Color3.fromRGB(200, 200, 200)
-_call206.TextSize = 12
-_call206.TextXAlignment = Enum.TextXAlignment.Left
-_call206.ZIndex = 10001
-_call206.Parent = _call202
-
-local _call216 = Instance.new('TextBox')
-
-_call216.Size = UDim2.new(0.42, 0, 0.8, 0)
-_call216.Position = UDim2.new(0.58, 0, 0.1, 0)
-_call216.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-_call216.Text = '0'
-_call216.Font = Enum.Font.GothamBold
-_call216.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call216.TextSize = 12
-_call216.ZIndex = 10001
-_call216.Parent = _call202
-
-local _call228 = Instance.new('UICorner')
-
-_call228.CornerRadius = UDim.new(0, 6)
-_call228.Parent = _call216
-
-_call216.FocusLost:Connect(function(...)
-    local _ = _call216.Text
-
-    _call216.Text = '0'
-end)
-
-local _call237 = Instance.new('Frame')
-
-_call237.Size = UDim2.new(1, -20, 0, 40)
-_call237.BackgroundTransparency = 1
-_call237.ZIndex = 10000
-_call237.Parent = _call86
-
-local _call241 = Instance.new('TextLabel')
-
-_call241.Size = UDim2.new(0.55, 0, 1, 0)
-_call241.BackgroundTransparency = 1
-_call241.Text = 'Anim Delay:'
-_call241.Font = Enum.Font.Gotham
-_call241.TextColor3 = Color3.fromRGB(200, 200, 200)
-_call241.TextSize = 12
-_call241.TextXAlignment = Enum.TextXAlignment.Left
-_call241.ZIndex = 10001
-_call241.Parent = _call237
-
-local _call251 = Instance.new('TextBox')
-
-_call251.Size = UDim2.new(0.42, 0, 0.8, 0)
-_call251.Position = UDim2.new(0.58, 0, 0.1, 0)
-_call251.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-_call251.Text = '0.23'
-_call251.Font = Enum.Font.GothamBold
-_call251.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call251.TextSize = 12
-_call251.ZIndex = 10001
-_call251.Parent = _call237
-
-local _call263 = Instance.new('UICorner')
-
-_call263.CornerRadius = UDim.new(0, 6)
-_call263.Parent = _call251
-
-_call251.FocusLost:Connect(function(...)
-    local _ = _call251.Text
-
-    _call251.Text = '0.23'
-end)
-
-local _call272 = Instance.new('Frame')
-
-_call272.Size = UDim2.new(1, -20, 0, 40)
-_call272.BackgroundTransparency = 1
-_call272.ZIndex = 10000
-_call272.Parent = _call86
-
-local _call276 = Instance.new('TextLabel')
-
-_call276.Size = UDim2.new(0.55, 0, 1, 0)
-_call276.BackgroundTransparency = 1
-_call276.Text = 'Upward TP:'
-_call276.Font = Enum.Font.Gotham
-_call276.TextColor3 = Color3.fromRGB(200, 200, 200)
-_call276.TextSize = 12
-_call276.TextXAlignment = Enum.TextXAlignment.Left
-_call276.ZIndex = 10001
-_call276.Parent = _call272
-
-local _call286 = Instance.new('TextBox')
-
-_call286.Size = UDim2.new(0.42, 0, 0.8, 0)
-_call286.Position = UDim2.new(0.58, 0, 0.1, 0)
-_call286.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-_call286.Text = '7'
-_call286.Font = Enum.Font.GothamBold
-_call286.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call286.TextSize = 12
-_call286.ZIndex = 10001
-_call286.Parent = _call272
-
-local _call298 = Instance.new('UICorner')
-
-_call298.CornerRadius = UDim.new(0, 6)
-_call298.Parent = _call286
-
-_call286.FocusLost:Connect(function(...)
-    error('internal 583: <25ms: infinitelooperror>')
-end)
-_call86.InputBegan:Connect(function(...) end)
-_call86.InputChanged:Connect(function(...) end)
-_call7.InputChanged:Connect(function(...) end)
-_call110.MouseButton1Click:Connect(function(...) end)
-
-local _call323 = Instance.new('Frame')
-
-_call323.Name = 'CreditFrame'
-_call323.Size = UDim2.new(0, 200, 0, 100)
-_call323.Position = UDim2.new(1, 0, 0.1, 0)
-_call323.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-_call323.ZIndex = 9999
-_call323.Parent = _call14
-
-local _call331 = Instance.new('UICorner')
-
-_call331.CornerRadius = UDim.new(0, 8)
-_call331.Parent = _call323
-
-local _call335 = Instance.new('TextLabel')
-
-_call335.Size = UDim2.new(1, 0, 0.3, 0)
-_call335.Position = UDim2.new(0, 0, 0, 0)
-_call335.BackgroundTransparency = 1
-_call335.Text = 'Made by levi'
-_call335.Font = Enum.Font.GothamBold
-_call335.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call335.TextScaled = true
-_call335.TextStrokeTransparency = 1
-_call335.Parent = _call323
-
-local _call345 = Instance.new('TextLabel')
-
-_call345.Size = UDim2.new(1, 0, 0.3, 0)
-_call345.Position = UDim2.new(0, 0, 0.3, 0)
-_call345.BackgroundTransparency = 1
-_call345.Text = 'https://discord.gg/RsxcaHhRqb'
-_call345.Font = Enum.Font.GothamBold
-_call345.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call345.TextScaled = true
-_call345.TextStrokeTransparency = 1
-_call345.Parent = _call323
-
-local _call355 = Instance.new('TextButton')
-
-_call355.Size = UDim2.new(1, 0, 0.4, 0)
-_call355.Position = UDim2.new(0, 0, 0.6, 0)
-_call355.BackgroundTransparency = 1
-_call355.Text = 'Click me to copy'
-_call355.Font = Enum.Font.GothamBold
-_call355.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call355.TextScaled = true
-_call355.TextStrokeTransparency = 1
-_call355.Parent = _call323
-
-_call355.MouseButton1Click:Connect(function(...) end)
-
-local _call377 = _call5:Create(_call323, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-    Position = UDim2.new(1, -200, 0.1, 0),
+local fenv = getfenv()
+local _5 = loadstring(game:HttpGet('https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua'))()
+local _call9 = _5:CreateWindow({
+    SideBarWidth = 160,
+    Author = 'SupaTech & Levi',
+    Folder = 'DexHubV6',
+    Title = 'Dex Hub v6 | Levi',
+    Transparent = true,
+    HasOutline = true,
+    Theme = 'Dark',
+    Icon = 'zap',
+    Size = UDim2.fromOffset(580, 500),
 })
 
-_call377:Play()
-task.delay(4, function(...) end)
+_G.LegitMode = false
+_G.LoopDashId = 633996
 
-local _call384 = Instance.new('TextLabel')
+local _call13 = game:GetService('Workspace')
 
-_call384.Name = 'CooldownLabel'
-_call384.Size = UDim2.new(0, 120, 0, 30)
-_call384.Position = UDim2.new(0, 10, 1, 0)
-_call384.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-_call384.BackgroundTransparency = 0.35
-_call384.TextColor3 = Color3.fromRGB(255, 255, 255)
-_call384.Text = 'Cooldown: 4'
-_call384.Font = Enum.Font.GothamBold
-_call384.TextScaled = true
-_call384.TextStrokeTransparency = 1
-_call384.Visible = false
-_call384.ZIndex = 9999
-_call384.Parent = _call14
+game:GetService('TweenService')
+game:GetService('VirtualInputManager')
 
-local _call396 = Instance.new('UICorner')
+local _LocalPlayer20 = game:GetService('Players').LocalPlayer
 
-_call396.CornerRadius = UDim.new(0, 8)
-_call396.Parent = _call384
+game:GetService('RunService').Stepped:Connect(function(...) end)
+_LocalPlayer20.CharacterAdded:Connect(function(...)
+    local _29_vararg1 = ...
+    local _call31 = _29_vararg1:WaitForChild('Humanoid')
 
-_LocalPlayer10.CharacterAdded:Connect(function(...) end)
+    fenv.char = _29_vararg1
+    fenv.hum = _call31
+    fenv.root = _29_vararg1:WaitForChild('HumanoidRootPart')
 
-local _ = _LocalPlayer10.Character
-local _Character404 = _LocalPlayer10.Character
-local _call406 = _Character404:WaitForChild('Humanoid')
+    _call31.AnimationPlayed:Connect(function(...)
+        local _37_vararg1 = ...
+        local _Character38 = _LocalPlayer20.Character
 
-_Character404:WaitForChild('HumanoidRootPart')
+        _Character38:FindFirstChildOfClass('Humanoid')
+        _Character38:FindFirstChild('HumanoidRootPart')
 
-local _ = _call406.AnimationPlayed
+        local _ = _37_vararg1.Animation
 
-_call406:FindFirstChildOfClass('Animator')
+        tostring(_37_vararg1.Animation.AnimationId)
+    end)
+    _call31:FindFirstChildOfClass('Animator').AnimationPlayed:Connect(function(...)
+        local _52_vararg1 = ...
+        local _Character53 = _LocalPlayer20.Character
+
+        _Character53:FindFirstChildOfClass('Humanoid')
+        _Character53:FindFirstChild('HumanoidRootPart')
+
+        local _ = _52_vararg1.Animation
+
+        tostring(_52_vararg1.Animation.AnimationId)
+    end)
+    _29_vararg1:WaitForChild('Humanoid').AnimationPlayed:Connect(function(...)
+        local _67_vararg1 = ...
+
+        tostring(_67_vararg1.Animation.AnimationId):match('%d+')
+    end)
+end)
+
+local _ = _LocalPlayer20.Character
+local _Character74 = _LocalPlayer20.Character
+
+_call36:Disconnect()
+_call51:Disconnect()
+
+local _call80 = _Character74:WaitForChild('Humanoid')
+
+fenv.char = _Character74
+fenv.hum = _call80
+fenv.root = _Character74:WaitForChild('HumanoidRootPart')
+
+_call80.AnimationPlayed:Connect(function(...)
+    local _86_vararg1 = ...
+    local _Character87 = _LocalPlayer20.Character
+
+    _Character87:FindFirstChildOfClass('Humanoid')
+    _Character87:FindFirstChild('HumanoidRootPart')
+
+    local _ = _86_vararg1.Animation
+
+    tostring(_86_vararg1.Animation.AnimationId)
+end)
+_call80:FindFirstChildOfClass('Animator').AnimationPlayed:Connect(function(...)
+    local _101_vararg1 = ...
+    local _Character102 = _LocalPlayer20.Character
+
+    _Character102:FindFirstChildOfClass('Humanoid')
+    _Character102:FindFirstChild('HumanoidRootPart')
+
+    local _ = _101_vararg1.Animation
+
+    tostring(_101_vararg1.Animation.AnimationId)
+end)
+_call66:Disconnect()
+_Character74:WaitForChild('Humanoid').AnimationPlayed:Connect(function(...)
+    local _118_vararg1 = ...
+
+    tostring(_118_vararg1.Animation.AnimationId):match('%d+')
+end)
+
+local _call125 = _call9:Tab({
+    Title = 'Down Supa v3',
+    Icon = 'zap',
+})
+local _call127 = _call9:Tab({
+    Title = 'SupaLegit',
+    Icon = 'zap',
+})
+local _call129 = _call9:Tab({
+    Title = 'Instant Lethal',
+    Icon = 'crosshair',
+})
+local _call131 = _call9:Tab({
+    Title = 'Hubs',
+    Icon = 'folder',
+})
+local _call133 = _call9:Tab({
+    Title = 'k1ng Tech',
+    Icon = 'cpu',
+})
+local _call135 = _call9:Tab({
+    Title = 'twisted',
+    Icon = 'shuffle',
+})
+local _call137 = _call9:Tab({
+    Title = 'Lethal Dash',
+    Icon = 'target',
+})
+local _call139 = _call9:Tab({
+    Title = 'SLethal',
+    Icon = 'shield',
+})
+local _call141 = _call9:Tab({
+    Title = 'Kyoto',
+    Icon = 'compass',
+})
+local _call143 = _call9:Tab({
+    Title = 'Loop Dash v2',
+    Icon = 'repeat',
+})
+local _call145 = _call9:Tab({
+    Title = 'Boomy Dash',
+    Icon = 'activity',
+})
+local _call147 = _call9:Tab({
+    Title = 'lag fix',
+    Icon = 'tool',
+})
+local _call149 = _call125:Section({
+    Title = 'Main Toggles',
+})
+
+_call149:Toggle({
+    Value = false,
+    Title = 'Floater Mode',
+    Callback = function(...) end,
+})
+_call149:Toggle({
+    Value = false,
+    Title = 'Aim Head',
+    Callback = function(...) end,
+})
+_call149:Toggle({
+    Value = false,
+    Title = 'Frog Jump Ver',
+    Callback = function(...) end,
+})
+_call149:Toggle({
+    Value = false,
+    Title = 'Activate Down Mode',
+    Callback = function(...) end,
+})
+_call149:Toggle({
+    Value = false,
+    Title = 'Dash Pattern',
+    Callback = function(...) end,
+})
+
+local _call166 = _call125:Section({
+    Title = 'Parameters Configuration',
+})
+
+_call166:Input({
+    Placeholder = '0.3',
+    Title = 'Floater Delay',
+    Callback = function(...) end,
+})
+_call166:Input({
+    Placeholder = '0.2',
+    Title = 'Stick Duration',
+    Callback = function(...) end,
+})
+_call166:Input({
+    Placeholder = '0.1',
+    Title = 'Frog Jump Delay',
+    Callback = function(...) end,
+})
+_call166:Input({
+    Placeholder = '60',
+    Title = 'Character Tilt Angle',
+    Callback = function(...) end,
+})
+
+local _call180 = _call125:Section({
+    Title = 'Target Tracking Options',
+})
+
+_call180:Toggle({
+    Value = false,
+    Title = 'Legit Dash Mode (Under Feet)',
+    Callback = function(...) end,
+})
+_call180:Input({
+    Placeholder = '0',
+    Title = 'Legit Mode Track Delay',
+    Callback = function(...) end,
+})
+_call180:Input({
+    Placeholder = '0',
+    Title = 'Legit Mode Jump Boost',
+    Callback = function(...) end,
+})
+
+local _call191 = _call125:Section({
+    Title = 'Camera Look Configuration',
+})
+
+_call191:Button({
+    Title = 'See Straight',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Camera set to Straight View (60\u{b0})',
+            Title = 'Legit Engine',
+        })
+    end,
+})
+_call191:Button({
+    Title = 'See Up',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Camera set to Upward Pitch (30\u{b0})',
+            Title = 'Legit Engine',
+        })
+    end,
+})
+_call191:Button({
+    Title = 'See Down',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Camera set to Downward Pitch (90\u{b0})',
+            Title = 'Legit Engine',
+        })
+    end,
+})
+_call191:Input({
+    Placeholder = 'Enter angle number (e.g. 90)',
+    Title = 'Custom Angle (e.g., 90\u{b0} straight upwards)',
+    Callback = function(...)
+        local _209_vararg1 = ...
+
+        _209_vararg1:gsub('[^%d%-]', '')
+        _5:Notify({
+            Duration = 3,
+            Content = 'Invalid angle format. Please enter a valid number.',
+            Title = 'Error',
+        })
+    end,
+})
+
+local _call215 = _call125:Section({
+    Title = 'Target Hit Alignment',
+})
+
+_call215:Button({
+    Title = 'Aim Head',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target Part: Head',
+            Title = 'Legit Engine',
+        })
+    end,
+})
+_call215:Button({
+    Title = 'Aim Torso',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target Part: Torso',
+            Title = 'Legit Engine',
+        })
+    end,
+})
+_call215:Button({
+    Title = 'Aim Legs',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target Part: Lower Limbs',
+            Title = 'Legit Engine',
+        })
+    end,
+})
+_call215:Button({
+    Title = 'Aim Root',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target Part: HumanoidRootPart',
+            Title = 'Legit Engine',
+        })
+    end,
+})
+_call127:Toggle({
+    Value = false,
+    Title = 'Enable SupaLegit',
+    Callback = function(...)
+        _LocalPlayer20.Character:WaitForChild('Humanoid').AnimationPlayed:Connect(function(...)
+            local _245_vararg1 = ...
+            local _ = _245_vararg1.Animation
+
+            tostring(_245_vararg1.Animation.AnimationId):find('10503381238')
+            task.delay(0.3, function(...)
+                error('internal 583: <25ms: infinitelooperror>')
+            end)
+        end)
+    end,
+})
+_call127:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter range (5-30)',
+    Default = '18',
+    Title = 'Stick Range',
+})
+_call127:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter time (1-10)',
+    Default = '4',
+    Title = 'Cooldown Time (s)',
+})
+_call129:Toggle({
+    Value = false,
+    Title = 'Enable Instant Lethal',
+    Callback = function(...)
+        _LocalPlayer20.Character:WaitForChild('Humanoid').AnimationPlayed:Connect(function(...)
+            local _271_vararg1 = ...
+            local _ = _271_vararg1.Animation
+            local _ = _271_vararg1.Animation.AnimationId
+        end)
+    end,
+})
+_call129:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter delay (0.1-0.5)',
+    Default = '0.22',
+    Title = 'Smoothness / Delay',
+})
+
+local _call279 = _call131:Section({
+    Title = 'External Script Integrations',
+})
+
+_call279:Button({
+    Title = 'Revenant hub',
+    Callback = function(...)
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/miikicomsono/Revenant/refs/heads/main/Loader'))()
+    end,
+})
+_call279:Button({
+    Title = 'Tthanh hub',
+    Callback = function(...)
+        loadstring(game:HttpGet('https://api.jnkie.com/api/v1/luascripts/public/70b143e27108f97031e9da3d47593c7dafb87793daa560e5b6d82ed7caf4f77f/download'))()
+    end,
+})
+_call279:Button({
+    Title = 'Thanhduy hub',
+    Callback = function(...)
+        loadstring(game:HttpGet('https://gist.githubusercontent.com/ngm2807-sudo/3bb38870095ccba814f13993813410f3/raw/BaeMinhHub.lua'))()
+    end,
+})
+_call279:Button({
+    Title = 'Phantasm hub',
+    Callback = function(...)
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/ATrainz/Phantasm/refs/heads/main/Games/TSB.lua'))()
+    end,
+})
+_call279:Button({
+    Title = 'Combat gui New',
+    Callback = function(...)
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Cyborg883/CombatGuiNew/refs/heads/main/Auto%20Block%20V12'))()
+    end,
+})
+_call279:Button({
+    Title = 'Aetana hub',
+    Callback = function(...)
+        loadstring(game:HttpGet('https://api.jnkie.com/api/v1/luascripts/public/f167909ab9c31427369cb4b56b226f2fcc6d47fe9053dc9d4a8da4b2ab760286/download'))()
+    end,
+})
+
+local _call323 = _call133:Section({
+    Title = 'Engine Processing',
+})
+
+_call323:Toggle({
+    Value = false,
+    Title = 'Enable k1ng Tech Engine',
+    Callback = function(...) end,
+})
+_call323:Toggle({
+    Value = false,
+    Title = 'Lock On Head',
+    Callback = function(...) end,
+})
+_call323:Toggle({
+    Value = false,
+    Title = 'Lock On Torso',
+    Callback = function(...) end,
+})
+
+local _call334 = _call133:Section({
+    Title = 'Execution Modifiers Configuration',
+})
+
+_call334:Input({
+    Placeholder = '10503381238',
+    Title = 'Target Animation ID',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '0',
+    Title = 'k1ng Tech Jump Boost',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '2.9',
+    Title = 'Activation Delay Time',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '0',
+    Title = 'Dash Delay Waiting Time',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '0.5',
+    Title = 'Aim Lock Delay Time',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '10',
+    Title = 'Aim Lock Active Length',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '150',
+    Title = 'Target Detection Radius',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '40',
+    Title = 'Cooldown Wait Time',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '836',
+    Title = 'Tracking Smoothness Speed',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '46',
+    Title = 'Velocity Speed Booster',
+    Callback = function(...) end,
+})
+_call334:Input({
+    Placeholder = '60',
+    Title = 'Character Tilt Angle',
+    Callback = function(...) end,
+})
+
+local _call369 = _call135:Section({
+    Title = 'Execution Status',
+})
+
+_call369:Toggle({
+    Value = false,
+    Title = 'twisted mode',
+    Callback = function(...) end,
+})
+_call369:Toggle({
+    Value = false,
+    Title = 'stick',
+    Callback = function(...) end,
+})
+
+local _call377 = _call135:Section({
+    Title = 'Time Configurations',
+})
+
+_call377:Input({
+    Placeholder = '0.2',
+    Title = 'twisted Delay',
+    Callback = function(...) end,
+})
+_call377:Input({
+    Placeholder = '0',
+    Title = 'Animation Detection Delay',
+    Callback = function(...) end,
+})
+_call377:Input({
+    Placeholder = '0.1',
+    Title = 'Stick Delay',
+    Callback = function(...) end,
+})
+_call377:Input({
+    Placeholder = '0.2',
+    Title = 'Stick Duration',
+    Callback = function(...) end,
+})
+_call377:Input({
+    Placeholder = '0',
+    Title = 'Jump Boost',
+    Callback = function(...) end,
+})
+_call377:Input({
+    Placeholder = '60',
+    Title = 'Character Tilt Angle',
+    Callback = function(...) end,
+})
+
+local _call397 = _call135:Section({
+    Title = 'Target Locking Alignment',
+})
+
+_call397:Button({
+    Title = 'Aim Head',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target targeted to: Head',
+            Title = 'Twisted Tech',
+        })
+    end,
+})
+_call397:Button({
+    Title = 'Aim Torso',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target targeted to: Torso',
+            Title = 'Twisted Tech',
+        })
+    end,
+})
+_call397:Button({
+    Title = 'Aim Legs',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target targeted to: Legs',
+            Title = 'Twisted Tech',
+        })
+    end,
+})
+
+local _call414 = _call135:Section({
+    Title = 'Hit Vector Angles',
+})
+
+_call414:Button({
+    Title = 'Normal Hit',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Hit Mode: Default Alignment',
+            Title = 'Twisted Tech',
+        })
+    end,
+})
+_call414:Button({
+    Title = 'Under Hit',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Hit Mode: Under Hit Angle Activated',
+            Title = 'Twisted Tech',
+        })
+    end,
+})
+_call414:Button({
+    Title = 'Upper Hit',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Hit Mode: Upper Hit Angle Activated',
+            Title = 'Twisted Tech',
+        })
+    end,
+})
+
+local _call431 = _call137:Section({
+    Title = 'Lethal Dash Core',
+})
+
+_call431:Toggle({
+    Value = false,
+    Title = 'Lethal Dash',
+    Callback = function(...) end,
+})
+_call431:Input({
+    Placeholder = '12296113986',
+    Title = 'Target Animation ID',
+    Callback = function(...) end,
+})
+_call431:Input({
+    Placeholder = '64',
+    Title = 'Jump Height',
+    Callback = function(...) end,
+})
+_call431:Input({
+    Placeholder = '0.74',
+    Title = 'Aim Duration',
+    Callback = function(...) end,
+})
+_call431:Input({
+    Placeholder = '0.22',
+    Title = 'Prediction Multiplier',
+    Callback = function(...) end,
+})
+_call431:Input({
+    Placeholder = '60',
+    Title = 'Character Tilt Angle',
+    Callback = function(...) end,
+})
+
+local _call451 = _call139:Section({
+    Title = 'SLethal Configuration',
+})
+
+_call451:Toggle({
+    Value = false,
+    Title = 'Enable SLethal',
+    Callback = function(...) end,
+})
+_call451:Input({
+    Placeholder = '0',
+    Title = 'SLethal Delay',
+    Callback = function(...) end,
+})
+_call451:Input({
+    Placeholder = '60',
+    Title = 'Character Tilt',
+    Callback = function(...) end,
+})
+_call451:Input({
+    Placeholder = '0',
+    Title = 'Jump Boost',
+    Callback = function(...) end,
+})
+
+local _call465 = _call139:Section({
+    Title = 'Target Hit Alignment',
+})
+
+_call465:Button({
+    Title = 'Aim Head',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target Part: Head',
+            Title = 'SLethal Engine',
+        })
+    end,
+})
+_call465:Button({
+    Title = 'Aim Torso',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target Part: Torso',
+            Title = 'SLethal Engine',
+        })
+    end,
+})
+_call465:Button({
+    Title = 'Aim Legs',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target Part: Legs',
+            Title = 'SLethal Engine',
+        })
+    end,
+})
+_call465:Button({
+    Title = 'Aim Root',
+    Callback = function(...)
+        _5:Notify({
+            Duration = 2,
+            Content = 'Target Part: HumanoidRootPart',
+            Title = 'SLethal Engine',
+        })
+    end,
+})
+
+local _call487 = _call141:Section({
+    Title = 'Kyoto Delay Settings',
+})
+
+_call487:Toggle({
+    Value = false,
+    Title = 'Delay',
+    Callback = function(...) end,
+})
+_call487:Input({
+    Placeholder = '12273188754',
+    Title = 'Animation ID',
+    Callback = function(...) end,
+})
+_call487:Input({
+    Placeholder = '22.5',
+    Title = 'Distance',
+    Callback = function(...) end,
+})
+_call487:Input({
+    Placeholder = '1.5',
+    Title = 'Activation Delay',
+    Callback = function(...) end,
+})
+_call487:Input({
+    Placeholder = '0.6',
+    Title = 'Cooldown',
+    Callback = function(...) end,
+})
+_call487:Input({
+    Placeholder = '60',
+    Title = 'Character Tilt Angle',
+    Callback = function(...) end,
+})
+
+local _call507 = _call143:Section({
+    Title = 'Loop Core Settings',
+})
+
+_call507:Toggle({
+    Value = false,
+    Title = 'Enable Loop Dash Loop',
+    Callback = function(...) end,
+})
+_call507:Toggle({
+    Value = false,
+    Title = 'Activate Down Mode',
+    Callback = function(...) end,
+})
+_call507:Toggle({
+    Value = true,
+    Title = 'NoClip During Dash',
+    Callback = function(...) end,
+})
+_call507:Toggle({
+    Value = true,
+    Title = 'Auto Cancel Enabled',
+    Callback = function(...) end,
+})
+_call507:Toggle({
+    Value = true,
+    Title = 'Cooldown Active',
+    Callback = function(...) end,
+})
+_call143:Dropdown({
+    Callback = function(...) end,
+    Default = 'BodyGyro',
+    Values = {
+        [1] = 'BodyGyro',
+        [2] = 'AlignOrientation',
+        [3] = 'Standard',
+    },
+    Title = 'Rotation Mode',
+})
+_call143:Dropdown({
+    Callback = function(...) end,
+    Default = 'Normal',
+    Values = {
+        [1] = 'Normal',
+        [2] = 'Delayed',
+    },
+    Title = 'Jump Mode',
+})
+_call507:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter range (4-20)',
+    Default = '8',
+    Title = 'Dash Range',
+})
+_call507:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter delay',
+    Default = '0.28',
+    Title = 'Loop Dash Delay',
+})
+_call507:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter power',
+    Default = '55',
+    Title = 'Loop Dash Jump Power',
+})
+_call507:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter accuracy',
+    Default = '15',
+    Title = 'Loop Dash Accuracy',
+})
+_call507:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter cancel delay',
+    Default = '0.4',
+    Title = 'Cancel Delay',
+})
+_call507:Input({
+    Callback = function(...) end,
+    Placeholder = 'Enter duration',
+    Default = '1.5',
+    Title = 'Total Dash Duration',
+})
+
+local _call548 = _call145:Section({
+    Title = 'Boomy Core Settings',
+})
+
+_call548:Toggle({
+    Value = false,
+    Title = 'Enable Boomy Dash Loop',
+    Callback = function(...) end,
+})
+_call548:Toggle({
+    Value = false,
+    Title = 'Activate Down Mode',
+    Callback = function(...) end,
+})
+_call548:Input({
+    Placeholder = '14',
+    Title = 'Start Sequence Delay',
+    Callback = function(...) end,
+})
+_call548:Input({
+    Placeholder = '3',
+    Title = 'Loop Delay Timer',
+    Callback = function(...) end,
+})
+_call548:Input({
+    Placeholder = '1',
+    Title = 'First Turn Dash Delay',
+    Callback = function(...) end,
+})
+_call548:Input({
+    Placeholder = '1000',
+    Title = 'Aim Lock Accuracy Strength',
+    Callback = function(...) end,
+})
+_call548:Input({
+    Placeholder = '62',
+    Title = 'Jump Height Power (Boomy)',
+    Callback = function(...) end,
+})
+_call548:Input({
+    Placeholder = '60',
+    Title = 'Character Tilt Angle',
+    Callback = function(...) end,
+})
+
+local _call574 = _call147:Section({
+    Title = 'Optimization Tools',
+})
+
+_call574:Button({
+    Title = 'Run Clean Lag Optimization',
+    Callback = function(...)
+        local _ = _LocalPlayer20.Character
+
+        for _582, _582_2 in pairs(_call13:GetDescendants())do
+            local _ = _582_2 == _call13.Terrain
+            local _ = _582_2 == _call13.CurrentCamera
+
+            _582_2:IsA('Camera')
+        end
+    end,
+})
+_call574:Button({
+    Title = 'Remove Visual Particles/Trails',
+    Callback = function(...) end,
+})
+_call9:SelectTab(1)
+_5:Notify({
+    Duration = 3,
+    Content = 'All combat scripts and loops successfully combined!',
+    Title = 'Dex Hub v6 | Levi Loaded',
+})
