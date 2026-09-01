@@ -3635,8 +3635,8 @@ M1reset:Input({
 --// Handle character respawn
 plr.CharacterAdded:Connect(function(newChar)
     char = newChar
-    hrp = char:WaitForChild("HumanoidRootPart")
-    humanoid = char:WaitForChild("Humanoid")
+    hrp = newChar:WaitForChild("HumanoidRootPart")
+    humanoid = newChar:WaitForChild("Humanoid")
     animator = humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator", humanoid)
 
     track = animator:LoadAnimation(anim)
